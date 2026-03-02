@@ -7,7 +7,7 @@ export const LeadForm = () => {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
-        projectType: "AI Automation",
+        service: "AI Automation",
         message: ""
     });
 
@@ -24,7 +24,7 @@ export const LeadForm = () => {
 
             if (res.ok) {
                 setStatus("success");
-                setFormData({ name: "", email: "", projectType: "AI Automation", message: "" });
+                setFormData({ name: "", email: "", service: "AI Automation", message: "" });
             } else {
                 setStatus("error");
             }
@@ -74,7 +74,7 @@ export const LeadForm = () => {
                     <div>
                         <label className="block text-sm font-medium text-neutral-400 mb-1">Project Type</label>
                         <select
-                            value={formData.projectType} onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
+                            value={formData.service} onChange={(e) => setFormData({ ...formData, service: e.target.value })}
                             className="w-full px-4 py-3 rounded-xl bg-neutral-900 border border-neutral-800 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition text-white appearance-none"
                         >
                             <option>AI Automation & n8n</option>

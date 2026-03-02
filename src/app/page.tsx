@@ -2,7 +2,7 @@
 import { Navbar } from "@/components/Navbar";
 import { servicesData } from "@/data/servicesData";
 import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
-import { IconCode, IconRobot, IconShoppingCart, IconDashboard } from "@tabler/icons-react";
+import { IconCode, IconRobot, IconShoppingCart, IconDashboard, IconBrandNextjs, IconBrandPython, IconBrandReact, IconBrandTailwind, IconBrandMysql, IconBrandNodejs } from "@tabler/icons-react";
 
 export default function Home() {
   return (
@@ -27,6 +27,21 @@ export default function Home() {
           <button className="bg-neutral-900 border border-neutral-800 hover:bg-neutral-800 text-white px-8 py-3 rounded-full font-semibold transition">
             Contact Me
           </button>
+        </div>
+      </section>
+
+      {/* Tech Stack Authenticity Banner (Marquee/Grid) */}
+      <section className="mb-32 overflow-hidden py-10 border-y border-white/5 bg-gradient-to-r from-transparent via-neutral-900/50 to-transparent">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col items-center">
+          <p className="text-sm font-bold tracking-widest uppercase text-neutral-500 mb-8">Architecting with Enterprise Grade Systems</p>
+          <div className="flex flex-wrap justify-center gap-8 md:gap-16 opacity-70 hover:opacity-100 transition duration-500">
+            <div className="flex flex-col items-center gap-2 group"><IconBrandNextjs className="w-12 h-12 text-white group-hover:text-primary transition" stroke={1.5} /><span className="text-xs text-neutral-600 font-mono">Next.js 14</span></div>
+            <div className="flex flex-col items-center gap-2 group"><IconBrandPython className="w-12 h-12 text-white group-hover:text-green-500 transition" stroke={1.5} /><span className="text-xs text-neutral-600 font-mono">Python/FastAPI</span></div>
+            <div className="flex flex-col items-center gap-2 group"><IconBrandReact className="w-12 h-12 text-white group-hover:text-blue-500 transition" stroke={1.5} /><span className="text-xs text-neutral-600 font-mono">React</span></div>
+            <div className="flex flex-col items-center gap-2 group"><IconBrandNodejs className="w-12 h-12 text-white group-hover:text-green-600 transition" stroke={1.5} /><span className="text-xs text-neutral-600 font-mono">Node.js (n8n)</span></div>
+            <div className="flex flex-col items-center gap-2 group"><IconBrandTailwind className="w-12 h-12 text-white group-hover:text-cyan-400 transition" stroke={1.5} /><span className="text-xs text-neutral-600 font-mono">Tailwind CSS</span></div>
+            <div className="flex flex-col items-center gap-2 group"><IconBrandMysql className="w-12 h-12 text-white group-hover:text-orange-500 transition" stroke={1.5} /><span className="text-xs text-neutral-600 font-mono">MariaDB/SQL</span></div>
+          </div>
         </div>
       </section>
 
