@@ -1,323 +1,212 @@
 "use client";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { servicesData } from "@/data/servicesData";
 import { portfolioData } from "@/data/portfolioData";
-import { BentoGrid, BentoGridItem } from "@/components/ui/bento-grid";
-import { motion, useInView } from "framer-motion";
+import { servicesData } from "@/data/servicesData";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { MagneticWrapper } from "@/components/MagneticWrapper";
 import {
+  IconArrowUpRight, IconStarFilled,
   IconBrandNextjs, IconBrandPython, IconBrandReact, IconBrandTailwind,
-  IconBrandMysql, IconBrandNodejs, IconBrandWordpress, IconShoppingCart,
-  IconBrandDocker, IconBrandGit, IconBrandFigma, IconBrandDjango,
-  IconApi, IconBrain, IconSpider, IconArrowUpRight, IconStarFilled,
-  IconCode, IconRobot
+  IconBrandMysql, IconBrandNodejs, IconShoppingCart, IconBrandDocker,
+  IconBrain, IconSpider, IconBrandDjango
 } from "@tabler/icons-react";
 
-/* ─── Animated Counter Component ─── */
-function AnimatedCounter({ target, suffix = "", prefix = "" }: { target: number; suffix?: string; prefix?: string }) {
-  const [count, setCount] = useState(0);
-  const ref = useRef<HTMLSpanElement>(null);
-  const isInView = useInView(ref, { once: true });
-
-  useEffect(() => {
-    if (!isInView) return;
-    let start = 0;
-    const duration = 2000;
-    const step = target / (duration / 16);
-    const timer = setInterval(() => {
-      start += step;
-      if (start >= target) { setCount(target); clearInterval(timer); }
-      else { setCount(Math.floor(start)); }
-    }, 16);
-    return () => clearInterval(timer);
-  }, [isInView, target]);
-
-  return <span ref={ref}>{prefix}{count.toLocaleString()}{suffix}</span>;
-}
-
-/* ─── Tech Stack Data (Extended) ─── */
-const techStack = [
-  { icon: IconBrandNextjs, name: "Next.js", color: "group-hover:text-white" },
-  { icon: IconBrandPython, name: "Python", color: "group-hover:text-yellow-400" },
-  { icon: IconBrandReact, name: "React", color: "group-hover:text-cyan-400" },
-  { icon: IconBrandNodejs, name: "Node.js", color: "group-hover:text-green-500" },
-  { icon: IconBrandTailwind, name: "Tailwind", color: "group-hover:text-cyan-300" },
-  { icon: IconBrandMysql, name: "MariaDB", color: "group-hover:text-orange-400" },
-  { icon: IconBrandWordpress, name: "WordPress", color: "group-hover:text-blue-400" },
-  { icon: IconShoppingCart, name: "Shopify", color: "group-hover:text-green-400" },
-  { icon: IconBrandDjango, name: "Django", color: "group-hover:text-emerald-500" },
-  { icon: IconBrandDocker, name: "Docker", color: "group-hover:text-blue-500" },
-  { icon: IconBrandGit, name: "Git", color: "group-hover:text-orange-500" },
-  { icon: IconBrandFigma, name: "Figma", color: "group-hover:text-purple-400" },
-  { icon: IconApi, name: "REST APIs", color: "group-hover:text-primary" },
-  { icon: IconBrain, name: "OpenAI", color: "group-hover:text-emerald-400" },
-  { icon: IconSpider, name: "Selenium", color: "group-hover:text-red-400" },
-];
-
-/* ─── Stats Data ─── */
-const stats = [
-  { value: 300, suffix: "+", label: "Projects Delivered" },
-  { value: 1, prefix: "$", suffix: "M+", label: "Client Revenue" },
-  { value: 98, suffix: "%", label: "Client Satisfaction" },
-  { value: 50, suffix: "+", label: "5-Star Reviews" },
-];
-
-/* ─── Testimonials ─── */
-const testimonials = [
-  {
-    quote: "Feroz completely transformed our e-commerce infrastructure. Revenue doubled within the first quarter after launch.",
-    name: "Sarah K.",
-    role: "CEO, Fashion E-Commerce",
-    stars: 5,
-  },
-  {
-    quote: "The n8n automation pipeline he built saves us 30+ hours per week. It's like having an extra team member that never sleeps.",
-    name: "Michael T.",
-    role: "Operations Lead, SaaS Startup",
-    stars: 5,
-  },
-  {
-    quote: "Best developer I've hired on Upwork. Delivered ahead of schedule with impeccable code quality and communication.",
-    name: "Amanda R.",
-    role: "Marketing Director",
-    stars: 5,
-  },
-];
-
 export default function Home() {
+  const { scrollYProgress } = useScroll();
+  const yHero = useTransform(scrollYProgress, [0, 1], [0, 300]);
+  const opacityHero = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+  const yServices = useTransform(scrollYProgress, [0, 1], [100, -100]);
+
   return (
-    <>
+    <div className="relative w-full selection:bg-primary selection:text-white">
       <Navbar />
 
-      {/* ═══════════════ SECTION 1: HERO ═══════════════ */}
-      <section className="flex flex-col items-center justify-center text-center mt-20 mb-32 z-10 relative px-4">
-        {/* Ambient Glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] pointer-events-none"></div>
+      {/* ═══════════════ SECTION 1: AWWWARDS HERO ═══════════════ */}
+      <section className="relative h-[90vh] flex flex-col justify-center items-center overflow-hidden w-full px-4">
+        <motion.div style={{ y: yHero, opacity: opacityHero }} className="text-center z-10 flex flex-col items-center">
+          <motion.div
+            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            className="text-[12vw] md:text-[8vw] font-heading font-black uppercase tracking-tighter leading-[0.85] text-white mix-blend-difference"
+          >
+            DIGITAL <br /> <span className="text-primary italic">ARCHITECT</span>
+          </motion.div>
 
-        <motion.span
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="px-4 py-1.5 rounded-full border border-primary/30 bg-primary/10 text-primary text-sm font-medium mb-6"
-        >
-          Top-Rated Developer • 300+ Projects • $1M+ Revenue
-        </motion.span>
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 1 }}
+            className="mt-8 text-lg md:text-xl font-sans text-neutral-400 max-w-xl mx-auto mix-blend-difference z-20"
+          >
+            Engineering autonomous AI logic and high-conversion frontend systems. Breaking the grid. Defying the template.
+          </motion.p>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 max-w-5xl bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-500 leading-tight"
-        >
-          I engineer scalable web architectures & autonomous AI systems.
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-lg md:text-xl text-neutral-400 max-w-2xl mb-10"
-        >
-          Transforming businesses with custom Next.js performance, intelligent automation pipelines, and high-conversion designs.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex gap-4"
-        >
-          <Link href="/portfolio" className="bg-primary hover:bg-blue-600 text-white px-8 py-3 rounded-full font-semibold transition shadow-[0_0_30px_-5px_rgba(59,130,246,0.4)]">
-            View My Work
-          </Link>
-          <Link href="/contact" className="bg-neutral-900 border border-neutral-800 hover:bg-neutral-800 text-white px-8 py-3 rounded-full font-semibold transition">
-            Contact Me
-          </Link>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7, duration: 0.8 }}
+            className="mt-12 flex gap-6 z-20 relative"
+          >
+            <MagneticWrapper>
+              <Link href="/portfolio" className="group relative px-8 py-4 bg-white text-black font-heading font-bold uppercase tracking-widest text-sm rounded-full overflow-hidden flex items-center gap-2">
+                <span className="relative z-10">Explore Work</span>
+                <IconArrowUpRight className="w-4 h-4 relative z-10 group-hover:rotate-45 transition-transform" />
+                <div className="absolute inset-0 bg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[0.16,1,0.3,1] z-0"></div>
+              </Link>
+            </MagneticWrapper>
+            <MagneticWrapper>
+              <Link href="/contact" className="px-8 py-4 bg-transparent border border-white/20 hover:border-white text-white font-heading font-bold uppercase tracking-widest text-sm rounded-full transition-colors duration-500">
+                Let's Talk
+              </Link>
+            </MagneticWrapper>
+          </motion.div>
         </motion.div>
-      </section>
 
-      {/* ═══════════════ SECTION 2: ANIMATED STATS ═══════════════ */}
-      <section className="mb-32 py-16 border-y border-white/5 bg-gradient-to-r from-transparent via-neutral-900/30 to-transparent">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((stat, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="text-center"
-              >
-                <p className="text-4xl md:text-5xl font-extrabold text-white mb-2">
-                  <AnimatedCounter target={stat.value} suffix={stat.suffix} prefix={stat.prefix} />
-                </p>
-                <p className="text-sm text-neutral-500 uppercase tracking-widest font-medium">{stat.label}</p>
-              </motion.div>
-            ))}
+        {/* Abstract Line Art Typography Background */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20 z-0 overflow-hidden">
+          <div className="text-[25vw] font-heading font-extrabold uppercase text-outline whitespace-nowrap opacity-20 -rotate-6">
+            FEROZ ARSHAD
           </div>
         </div>
       </section>
 
-      {/* ═══════════════ SECTION 3: TECH STACK MARQUEE ═══════════════ */}
-      <section className="mb-32 overflow-hidden py-10 border-y border-white/5 bg-gradient-to-r from-transparent via-neutral-900/50 to-transparent">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col items-center">
-          <p className="text-sm font-bold tracking-widest uppercase text-neutral-500 mb-8">Architecting with Enterprise-Grade Systems</p>
-          <div className="grid grid-cols-5 md:grid-cols-5 lg:grid-cols-15 gap-6 md:gap-8 w-full">
-            {techStack.map((tech, idx) => (
-              <motion.div
-                key={idx}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.3, delay: idx * 0.03 }}
-                className="flex flex-col items-center gap-2 group cursor-default"
-              >
-                <tech.icon className={`w-10 h-10 md:w-12 md:h-12 text-neutral-600 ${tech.color} transition duration-300`} stroke={1.5} />
-                <span className="text-[10px] md:text-xs text-neutral-600 font-mono group-hover:text-neutral-300 transition">{tech.name}</span>
-              </motion.div>
+      <div className="w-full bg-black relative z-20 border-t border-white/10 rounded-t-[3rem] -mt-10 overflow-hidden pt-20 pb-32">
+
+        {/* ═══════════════ SECTION 2: ENDLESS MARQUEE ═══════════════ */}
+        <section className="mb-40 py-10 border-y border-white/5 bg-neutral-950/50 backdrop-blur-sm overflow-hidden flex">
+          <motion.div
+            initial={{ x: 0 }}
+            animate={{ x: "-50%" }}
+            transition={{ ease: "linear", duration: 20, repeat: Infinity }}
+            className="flex whitespace-nowrap items-center gap-16"
+          >
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="flex gap-16 items-center">
+                <span className="text-4xl font-heading font-bold text-outline uppercase">Next.js</span>
+                <IconBrandReact className="w-8 h-8 text-neutral-600" />
+                <span className="text-4xl font-heading font-bold text-outline uppercase">Python</span>
+                <IconBrain className="w-8 h-8 text-neutral-600" />
+                <span className="text-4xl font-heading font-bold text-outline uppercase">MariaDB</span>
+                <IconBrandDocker className="w-8 h-8 text-neutral-600" />
+                <span className="text-4xl font-heading font-bold text-outline uppercase">Rest APIs</span>
+              </div>
             ))}
-          </div>
-        </div>
-      </section>
+          </motion.div>
+        </section>
 
-      {/* ═══════════════ SECTION 4: SERVICES BENTO BOX ═══════════════ */}
-      <section id="services" className="mb-32 max-w-7xl mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex flex-col mb-10 items-center text-center"
-        >
-          <h2 className="text-4xl font-extrabold tracking-tight mb-3">My Arsenal</h2>
-          <p className="text-neutral-400 max-w-xl">The intersection of cutting-edge web design and backend AI automation.</p>
-        </motion.div>
+        {/* ═══════════════ SECTION 3: ASYMMETRICAL SERVICES ═══════════════ */}
+        <section className="max-w-7xl mx-auto px-4 mb-40">
+          <div className="grid md:grid-cols-12 gap-12 items-center">
+            <div className="md:col-span-5 relative">
+              <motion.h2
+                initial={{ opacity: 0, x: -50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8 }}
+                className="text-5xl md:text-7xl font-heading font-black uppercase leading-none mb-6"
+              >
+                Core <br /><span className="text-neutral-600 italic">Expertise</span>
+              </motion.h2>
+              <p className="text-neutral-400 font-sans text-lg max-w-sm">Crafting logic for multi-million dollar brands. No templates. Pure engineering.</p>
+            </div>
 
-        <BentoGrid>
-          {servicesData.map((item, i) => (
-            <BentoGridItem
-              key={item.slug}
-              href={`/services/${item.slug}`}
-              title={item.title}
-              description={item.shortDescription}
-              header={<div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl bg-gradient-to-br from-neutral-900 to-neutral-800 flex items-center justify-center"><item.icon className="h-10 w-10 text-primary" stroke={1.5} /></div>}
-              icon={<item.icon className="h-5 w-5 text-neutral-500" stroke={1.5} />}
-              className={i === 0 || i === 3 ? "md:col-span-2" : ""}
-            />
-          ))}
-        </BentoGrid>
-      </section>
-
-      {/* ═══════════════ SECTION 5: FEATURED PORTFOLIO ═══════════════ */}
-      <section className="mb-32 max-w-7xl mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex flex-col md:flex-row justify-between items-end mb-12"
-        >
-          <div>
-            <h2 className="text-4xl font-extrabold tracking-tight mb-3">Featured Case Studies</h2>
-            <p className="text-neutral-400 max-w-xl">Real problems. Engineered solutions. Measurable outcomes.</p>
-          </div>
-          <Link href="/portfolio" className="text-primary text-sm font-bold hover:underline mt-4 md:mt-0 flex items-center gap-1">
-            View All <IconArrowUpRight className="w-4 h-4" />
-          </Link>
-        </motion.div>
-
-        <div className="grid md:grid-cols-2 gap-8">
-          {portfolioData.slice(0, 4).map((project, idx) => (
             <motion.div
-              key={project.slug}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              style={{ y: yServices }}
+              className="md:col-span-7 grid sm:grid-cols-2 gap-6"
             >
-              <Link href={`/portfolio/${project.slug}`} className="group block">
-                <div className="rounded-[2.5rem] bg-card border border-white/5 p-3 hover:border-primary/50 transition duration-500 hover:shadow-[0_0_40px_-15px_rgba(59,130,246,0.3)]">
-                  <div className="w-full h-56 rounded-[2rem] bg-gradient-to-br from-neutral-900 to-black mb-4 flex items-center justify-center relative overflow-hidden group-hover:scale-[0.98] transition duration-500">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(59,130,246,0.1),transparent_50%)]"></div>
-                    <div className="w-20 h-20 rounded-full border border-white/10 bg-white/5 flex items-center justify-center backdrop-blur-sm group-hover:scale-110 group-hover:border-primary/50 transition duration-500">
-                      <IconArrowUpRight className="w-7 h-7 text-neutral-500 group-hover:text-primary transition" />
+              {servicesData.map((svc, i) => (
+                <motion.div
+                  key={svc.slug}
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.6, delay: i * 0.1 }}
+                  className="group p-8 rounded-[2rem] bg-card border border-white/5 hover:bg-neutral-900 transition-colors duration-500"
+                >
+                  <svc.icon className="w-10 h-10 text-primary mb-6" stroke={1.5} />
+                  <h3 className="text-2xl font-heading font-bold mb-3 group-hover:text-primary transition-colors">{svc.title}</h3>
+                  <p className="text-neutral-400 font-sans text-sm">{svc.shortDescription}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </section>
+
+        {/* ═══════════════ SECTION 4: HORIZONTAL SCROLL PORTFOLIO (Simplified to Grid for standard layout but high-end look) ═══════════════ */}
+        <section className="max-w-7xl mx-auto px-4 mb-40">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-white/10 pb-8"
+          >
+            <h2 className="text-5xl md:text-6xl font-heading font-black uppercase">Selected Works</h2>
+            <MagneticWrapper>
+              <Link href="/portfolio" className="text-primary font-heading font-bold uppercase text-sm flex items-center gap-2 tracking-widest hover:text-white transition-colors">
+                View Archive <IconArrowUpRight className="w-5 h-5" />
+              </Link>
+            </MagneticWrapper>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-12">
+            {portfolioData.slice(0, 4).map((project, idx) => (
+              <motion.div
+                key={project.slug}
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className={`group ${idx % 2 === 1 ? 'md:mt-32' : ''}`}
+              >
+                <Link href={`/portfolio/${project.slug}`} className="block">
+                  <div className="w-full aspect-[4/3] rounded-[2rem] bg-neutral-900 mb-8 overflow-hidden relative">
+                    <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 mix-blend-overlay z-10"></div>
+                    <div className="w-full h-full flex items-center justify-center bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.1),transparent)]">
+                      <span className="font-heading font-bold text-4xl text-white/5 uppercase tracking-widest">{project.category.split(" ")[0]}</span>
                     </div>
                   </div>
-                  <div className="px-5 pb-5">
-                    <span className="text-primary text-xs font-bold tracking-widest uppercase mb-2 block">{project.category}</span>
-                    <h3 className="text-xl font-bold group-hover:text-primary transition duration-300 mb-2 leading-tight">{project.title}</h3>
-                    <p className="text-neutral-500 text-sm line-clamp-2">{project.problem}</p>
+                  <div className="flex gap-4 items-start justify-between">
+                    <div>
+                      <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest mb-2 block">{project.category}</span>
+                      <h3 className="text-3xl font-heading font-bold group-hover:text-primary transition-colors leading-tight">{project.title}</h3>
+                    </div>
+                    <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary group-hover:border-primary transition-colors duration-500">
+                      <IconArrowUpRight className="w-5 h-5 text-white" />
+                    </div>
                   </div>
-                </div>
-              </Link>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* ═══════════════ SECTION 6: TESTIMONIALS ═══════════════ */}
-      <section className="mb-32 max-w-7xl mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-4xl font-extrabold tracking-tight mb-3">Client Testimonials</h2>
-          <p className="text-neutral-400 max-w-xl mx-auto">Trusted by startups, agencies, and enterprise teams worldwide.</p>
-        </motion.div>
-
-        <div className="grid md:grid-cols-3 gap-6">
-          {testimonials.map((t, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="p-8 rounded-[2rem] bg-card border border-white/5 hover:border-primary/20 transition duration-500 relative overflow-hidden"
-            >
-              <div className="absolute -top-6 -right-6 w-24 h-24 bg-primary/5 rounded-full blur-2xl"></div>
-              <div className="flex gap-1 mb-4">
-                {Array.from({ length: t.stars }).map((_, i) => (
-                  <IconStarFilled key={i} className="w-4 h-4 text-yellow-500" />
-                ))}
-              </div>
-              <p className="text-neutral-300 leading-relaxed mb-6 italic">&ldquo;{t.quote}&rdquo;</p>
-              <div>
-                <p className="text-white font-bold text-sm">{t.name}</p>
-                <p className="text-neutral-500 text-xs">{t.role}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* ═══════════════ SECTION 7: CTA BANNER ═══════════════ */}
-      <section className="mb-32 max-w-7xl mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="relative rounded-[2.5rem] bg-gradient-to-br from-primary/20 via-black to-primary/10 border border-primary/20 p-12 md:p-16 text-center overflow-hidden"
-        >
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[400px] h-[200px] bg-primary/20 blur-[100px] pointer-events-none"></div>
-          <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 relative z-10">Ready to Build Something Extraordinary?</h2>
-          <p className="text-neutral-400 max-w-xl mx-auto mb-8 relative z-10">Let's discuss your project architecture. I respond within 2 hours.</p>
-          <div className="flex gap-4 justify-center relative z-10">
-            <Link href="/contact" className="bg-primary hover:bg-blue-600 text-white px-8 py-3 rounded-full font-semibold transition shadow-[0_0_30px_-5px_rgba(59,130,246,0.4)]">
-              Start a Project
-            </Link>
-            <Link href="/portfolio" className="bg-white/5 border border-white/10 hover:bg-white/10 text-white px-8 py-3 rounded-full font-semibold transition">
-              Explore Portfolio
-            </Link>
+                </Link>
+              </motion.div>
+            ))}
           </div>
-        </motion.div>
-      </section>
+        </section>
+
+        {/* ═══════════════ SECTION 5: BRUTALIST CTA ═══════════════ */}
+        <section className="mb-10 px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            className="max-w-7xl mx-auto bg-primary rounded-[3rem] p-12 md:p-24 text-center text-black relative overflow-hidden"
+          >
+            <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E')] opacity-30 mix-blend-overlay pointer-events-none"></div>
+            <h2 className="text-6xl md:text-8xl font-heading font-black uppercase leading-none mb-8 tracking-tighter">
+              Let's Build <br /> <span className="text-white">Something Epic.</span>
+            </h2>
+            <MagneticWrapper>
+              <Link href="/contact" className="inline-block px-12 py-5 bg-black text-white rounded-full font-heading font-bold uppercase tracking-widest text-lg hover:scale-105 transition-transform duration-500">
+                Start Your Project
+              </Link>
+            </MagneticWrapper>
+          </motion.div>
+        </section>
+      </div>
 
       <Footer />
-    </>
+    </div>
   );
 }

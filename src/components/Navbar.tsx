@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
+import { MagneticWrapper } from "@/components/MagneticWrapper";
 
 export const Navbar = () => {
     const { resolvedTheme } = useTheme();
@@ -15,29 +16,25 @@ export const Navbar = () => {
         <motion.nav
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            className="sticky top-4 z-50 w-full mb-12 flex justify-center"
+            className="fixed top-0 left-0 right-0 z-[100] w-full p-4 md:p-8 pointer-events-none"
         >
-            <div className="flex items-center justify-between px-6 py-3 bg-black/50 backdrop-blur-md border border-white/10 rounded-full shadow-2xl w-full max-w-3xl">
-                <Link href="/" className="flex items-center gap-3">
-                    {mounted && resolvedTheme === "light" ? (
-                        <Image src="/images/logo-black.png" alt="Feroz Arshad Logo" width={32} height={32} />
-                    ) : (
-                        <Image src="/images/logo-white.webp" alt="Feroz Arshad Logo" width={32} height={32} />
-                    )}
-                    <span className="text-white font-bold text-xl tracking-tight hidden sm:block">Feroz Arshad</span>
-                </Link>
-                <div className="hidden md:flex space-x-8 text-sm font-medium text-neutral-300">
-                    <Link href="/services" className="hover:text-white transition">Services</Link>
-                    <Link href="/portfolio" className="hover:text-white transition">Portfolio</Link>
-                    <Link href="/insights" className="hover:text-white transition">Insights</Link>
-                    <Link href="/about" className="hover:text-white transition">About</Link>
+            <div className="flex items-center justify-between w-full max-w-7xl mx-auto pointer-events-auto mix-blend-difference text-white">
+                <MagneticWrapper>
+                    <Link href="/" className="flex items-center gap-4 group">
+                        <span className="font-heading font-black text-2xl tracking-tighter uppercase leading-none group-hover:italic transition-all">Feroz<br />Arshad</span>
+                    </Link>
+                </MagneticWrapper>
+                <div className="hidden md:flex space-x-12 text-xs font-heading font-bold uppercase tracking-widest">
+                    <MagneticWrapper><Link href="/services" className="hover:italic transition-all">Services</Link></MagneticWrapper>
+                    <MagneticWrapper><Link href="/portfolio" className="hover:italic transition-all">Portfolio</Link></MagneticWrapper>
+                    <MagneticWrapper><Link href="/insights" className="hover:italic transition-all">Insights</Link></MagneticWrapper>
+                    <MagneticWrapper><Link href="/about" className="hover:italic transition-all">About</Link></MagneticWrapper>
                 </div>
-                <Link
-                    href="/contact"
-                    className="bg-white text-black px-4 py-2 rounded-full text-sm font-semibold hover:bg-neutral-200 transition"
-                >
-                    Let's Talk
-                </Link>
+                <MagneticWrapper className="pointer-events-auto">
+                    <Link href="/contact" className="fixed top-6 right-6 md:static px-6 py-3 border border-white/30 rounded-full text-xs font-heading font-bold uppercase tracking-widest hover:bg-white hover:text-black hover:scale-105 transition-all mix-blend-difference text-white">
+                        Let's Talk
+                    </Link>
+                </MagneticWrapper>
             </div>
         </motion.nav>
     );

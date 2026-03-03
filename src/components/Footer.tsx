@@ -1,62 +1,61 @@
 "use client";
 import Link from "next/link";
 import { IconBrandGithub, IconBrandLinkedin, IconBrandUpwork, IconMail } from "@tabler/icons-react";
+import { MagneticWrapper } from "@/components/MagneticWrapper";
 
 export const Footer = () => {
     return (
-        <footer className="border-t border-white/5 bg-black mt-32">
-            <div className="max-w-7xl mx-auto px-4 py-16">
-                <div className="grid md:grid-cols-4 gap-12 mb-12">
+        <footer className="bg-black pt-32 pb-12 rounded-t-[3rem] -mt-10 relative z-30">
+            <div className="max-w-7xl mx-auto px-4">
+                <div className="flex flex-col items-center text-center mb-24">
+                    <h2 className="text-[15vw] leading-[0.8] font-heading font-black uppercase tracking-tighter text-outline opacity-20 hover:opacity-100 hover:text-white hover:text-outline-none transition-all duration-700 cursor-default">
+                        FEROZ ARSHAD
+                    </h2>
+                </div>
+
+                <div className="grid md:grid-cols-4 gap-12 mb-12 border-t border-white/10 pt-16">
                     {/* Brand */}
                     <div className="md:col-span-2">
-                        <h3 className="text-2xl font-extrabold tracking-tight text-white mb-4">Feroz Arshad</h3>
-                        <p className="text-neutral-500 max-w-md leading-relaxed mb-6">
-                            Top-Rated Full-Stack Developer & AI Automation Architect. Engineering scalable web systems and autonomous pipelines for enterprise clients worldwide.
+                        <h3 className="text-3xl font-heading font-extrabold tracking-tighter text-white mb-6 uppercase">Digital Architect</h3>
+                        <p className="text-neutral-500 max-w-sm font-sans text-lg leading-relaxed mb-8">
+                            Engineering scalable web systems and autonomous pipelines for enterprise clients worldwide. Out-innovate your competition.
                         </p>
                         <div className="flex gap-4">
-                            <a href="https://github.com/FerozArshad" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary/20 hover:border-primary/50 transition duration-300">
-                                <IconBrandGithub className="w-5 h-5 text-neutral-400 hover:text-white transition" />
-                            </a>
-                            <a href="https://linkedin.com/in/ferozarshad" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary/20 hover:border-primary/50 transition duration-300">
-                                <IconBrandLinkedin className="w-5 h-5 text-neutral-400 hover:text-white transition" />
-                            </a>
-                            <a href="https://upwork.com/freelancers/ferozarshad" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-green-500/20 hover:border-green-500/50 transition duration-300">
-                                <IconBrandUpwork className="w-5 h-5 text-neutral-400 hover:text-white transition" />
-                            </a>
-                            <a href="mailto:contact@ferozarshad.com" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-primary/20 hover:border-primary/50 transition duration-300">
-                                <IconMail className="w-5 h-5 text-neutral-400 hover:text-white transition" />
-                            </a>
+                            <MagneticWrapper><a href="https://github.com/FerozArshad" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition duration-500"><IconBrandGithub className="w-5 h-5" /></a></MagneticWrapper>
+                            <MagneticWrapper><a href="https://linkedin.com/in/ferozarshad" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition duration-500"><IconBrandLinkedin className="w-5 h-5" /></a></MagneticWrapper>
+                            <MagneticWrapper><a href="https://upwork.com/freelancers/ferozarshad" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-green-500 hover:border-green-500 hover:text-white transition duration-500"><IconBrandUpwork className="w-5 h-5" /></a></MagneticWrapper>
+                            <MagneticWrapper><a href="mailto:contact@ferozarshad.com" className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition duration-500"><IconMail className="w-5 h-5" /></a></MagneticWrapper>
                         </div>
                     </div>
 
                     {/* Quick Links */}
                     <div>
-                        <h4 className="text-sm font-bold tracking-widest uppercase text-neutral-400 mb-6">Navigation</h4>
-                        <ul className="space-y-3">
-                            <li><Link href="/services" className="text-neutral-500 hover:text-white transition text-sm">Services</Link></li>
-                            <li><Link href="/portfolio" className="text-neutral-500 hover:text-white transition text-sm">Portfolio</Link></li>
-                            <li><Link href="/insights" className="text-neutral-500 hover:text-white transition text-sm">Insights</Link></li>
-                            <li><Link href="/about" className="text-neutral-500 hover:text-white transition text-sm">About</Link></li>
-                            <li><Link href="/contact" className="text-neutral-500 hover:text-white transition text-sm">Contact</Link></li>
+                        <h4 className="text-xs font-heading font-bold tracking-widest uppercase text-neutral-600 mb-8">Navigation</h4>
+                        <ul className="space-y-4 font-heading text-sm uppercase tracking-widest font-bold">
+                            <li><Link href="/services" className="text-neutral-400 hover:text-white hover:italic transition-all">Services</Link></li>
+                            <li><Link href="/portfolio" className="text-neutral-400 hover:text-white hover:italic transition-all">Portfolio</Link></li>
+                            <li><Link href="/insights" className="text-neutral-400 hover:text-white hover:italic transition-all">Insights</Link></li>
+                            <li><Link href="/about" className="text-neutral-400 hover:text-white hover:italic transition-all">About</Link></li>
+                            <li><Link href="/contact" className="text-neutral-400 hover:text-white hover:italic transition-all">Contact</Link></li>
                         </ul>
                     </div>
 
                     {/* Services */}
                     <div>
-                        <h4 className="text-sm font-bold tracking-widest uppercase text-neutral-400 mb-6">Services</h4>
-                        <ul className="space-y-3">
-                            <li><Link href="/services/ai-automation" className="text-neutral-500 hover:text-white transition text-sm">AI & Automation</Link></li>
-                            <li><Link href="/services/full-stack-saas" className="text-neutral-500 hover:text-white transition text-sm">Full-Stack SaaS</Link></li>
-                            <li><Link href="/services/ecommerce" className="text-neutral-500 hover:text-white transition text-sm">E-Commerce</Link></li>
-                            <li><Link href="/services/custom-web-design" className="text-neutral-500 hover:text-white transition text-sm">Web Design</Link></li>
+                        <h4 className="text-xs font-heading font-bold tracking-widest uppercase text-neutral-600 mb-8">Expertise</h4>
+                        <ul className="space-y-4 font-heading text-sm uppercase tracking-widest font-bold">
+                            <li><Link href="/services/ai-automation" className="text-neutral-400 hover:text-white hover:italic transition-all">AI Validation & n8n</Link></li>
+                            <li><Link href="/services/full-stack-saas" className="text-neutral-400 hover:text-white hover:italic transition-all">SaaS Architecture</Link></li>
+                            <li><Link href="/services/ecommerce" className="text-neutral-400 hover:text-white hover:italic transition-all">Headless E-Commerce</Link></li>
+                            <li><Link href="/services/custom-web-design" className="text-neutral-400 hover:text-white hover:italic transition-all">Creative WebGL Design</Link></li>
                         </ul>
                     </div>
                 </div>
 
                 {/* Bottom Bar */}
-                <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p className="text-neutral-600 text-sm">© {new Date().getFullYear()} Feroz Arshad. All rights reserved.</p>
-                    <p className="text-neutral-700 text-xs font-mono">Engineered with Next.js 16 · Prisma · MariaDB · Framer Motion</p>
+                <div className="flex flex-col md:flex-row justify-between items-center gap-4 mt-16 pt-8 border-t border-white/10">
+                    <p className="text-neutral-600 font-sans text-sm">© {new Date().getFullYear()} Feroz Arshad. All rights reserved.</p>
+                    <p className="text-neutral-700 font-mono text-xs tracking-widest uppercase">Engineered with Next.js & Framer Motion</p>
                 </div>
             </div>
         </footer>
