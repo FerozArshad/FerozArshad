@@ -9,7 +9,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import {
   IconBrandNextjs, IconBrandPython, IconBrandReact, IconBrandTailwind,
-  IconBrandMysql, IconBrandNodejs, IconBrandWordpress, IconBuildingStore,
+  IconBrandMysql, IconBrandNodejs, IconBrandWordpress, IconShoppingCart,
   IconBrandDocker, IconBrandGit, IconBrandFigma, IconBrandDjango,
   IconApi, IconBrain, IconSpider, IconArrowUpRight, IconStarFilled,
   IconCode, IconRobot
