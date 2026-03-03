@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 
+export const dynamic = "force-dynamic";
+
 export async function GET(req: Request) {
     try {
         // SECURITY: Check if admin already exists to prevent an attacker from creating a new admin.
