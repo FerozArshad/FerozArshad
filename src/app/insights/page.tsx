@@ -1,5 +1,6 @@
 "use client";
 import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { IconBook2 } from "@tabler/icons-react";
@@ -77,6 +78,7 @@ export default function InsightsPage() {
                     ))}
                 </div>
             </div>
+            <Footer />
         </>
     );
 }

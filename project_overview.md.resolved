@@ -1,0 +1,57 @@
+# Binance Portfolio Tracker — System Overview
+
+This document provides a complete, high-level breakdown of how the local crypto portfolio tracker works, from the Binance API down to the HTML frontend.
+
+---
+
+## 1. The Core Architecture
+The system is built as a **fully local web application**. 
+- **Security First:** Your API keys are strictly loaded from a local [.env](file:///c:/Users/feroz/Desktop/stockbot/.env) file. The server runs at `127.0.0.1` (localhost), meaning it cannot be accessed from the internet. No data is ever sent to a third-party server.
+- **Backend Environment:** Python 3.14 running FastAPI + Uvicorn server.
+- **Frontend Environment:** Vanilla HTML5, CSS3, and JavaScript (No React/Vue overhead).
+
+---
+
+## 2. The Backend Engine ([main.py](file:///c:/Users/feroz/Desktop/stockbot/main.py) & [binance_client.py](file:///c:/Users/feroz/Desktop/stockbot/binance_client.py))
+The backend is responsible for talking to Binance, navigating rate limits, crunching the math, and serving the data inside clean JSON APIs to the frontend.
+
+### Data Fetching
+1.  **Cross-Wallet Scanner:** Instead of just checking your "Spot" wallet, the backend calls `getUserAsset()` to aggregate holdings across your Spot, Earn, and Funding wallets.
+2.  **Absolute History Paginator:** To get past Binance's "1,000 trades per call" limit, the code loops through your history starting from trade ID `0`. 
+3.  **Extended Coin Support:** If you traded a coin in the past but hold 0 balance today, Binance normally hides it. We bypass this by hardcoding a list of the Top 40 highest-volume coins (BTC, ETH, DOGE, SHIB) and explicitly commanding the API to search your history for them.
+
+### The Math Engines
+*   **True Cost-Basis Calculator:** If you deposit 1 BTC from an external wallet, most trackers break because they didn't "see" you buy it. Our script cross-references your external deposits with your trade history to calculate your true average cost basis.
+*   **FIFO Algorithm (First-In, First-Out):** To calculate "Round Trip" completed trades, the Python backend literally plays forward your trading history. If you buy 100 DOGE, buy another 100, then sell 50—it matches that 50 sell to the very first 50 DOGE you bought to calculate your exact profit in USD and ROI percentage.
+
+### API Endpoints (The Bridge to Frontend)
+*   **GET `/api/balances`**: Returns all assets you own > 0, calculates their live USDT equivalent value, and sorts them from highest to lowest dollar value.
+*   **GET `/api/trades`**: Returns your raw, unedited trade history up to 1000 items (for the bottom ledger table).
+*   **GET `/api/transfers` & `/api/orders`**: Fetches the last 365 days of external deposits/withdrawals and any open limit orders sitting in the orderbook.
+*   **GET `/api/pnl`**: The master endpoint. It runs the FIFO engine and Cost Basis algorithms. It returns [summary](file:///c:/Users/feroz/Desktop/stockbot/binance_client.py#366-399) (Total Invested, Total PNL, Total Fees), `symbols` (Win/Loss ratios by coin), and [advanced](file:///c:/Users/feroz/Desktop/stockbot/binance_client.py#284-364) (Best Trade, Biggest Loss, and Completed Positions lists).
+
+---
+
+## 3. The Frontend Interface ([index.html](file:///c:/Users/feroz/Desktop/stockbot/static/index.html), [style.css](file:///c:/Users/feroz/Desktop/stockbot/static/style.css), [app.js](file:///c:/Users/feroz/Desktop/stockbot/static/app.js))
+The frontend is a single-page application (SPA) that pulls data from the Python API endpoints in parallel to build the visual dashboard.
+
+### JavaScript Operations ([app.js](file:///c:/Users/feroz/Desktop/stockbot/static/app.js))
+1.  **Parallel Loading:** When the page loads, [loadAllData()](file:///c:/Users/feroz/Desktop/stockbot/static/app.js#299-331) fires off 5 API requests simultaneously to the Python backend to ensure the dashboard loads as fast as possible.
+2.  **Data Formatting:** Raw numbers are fed through [formatUSD()](file:///c:/Users/feroz/Desktop/stockbot/static/app.js#42-47) and [formatNumber()](file:///c:/Users/feroz/Desktop/stockbot/static/app.js#48-54) to clean up long 8-decimal Binance strings into readable formats (e.g., `$1,200.50`).
+3.  **DOM Injection:** JavaScript takes the JSON arrays and dynamically generates HTML strings to inject into the `<tbody>` elements of the tables on the dashboard.
+4.  **Portfolio Allocation Math:** The JS adds up the total USDT value of your entire wallet. It then loops through the coins, dividing each coin's value by the total, to calculate the percentage (`pct`). It assigns a unique color and injects this as inline-CSS `width:` into the Portfolio Allocation visualizer bar. (Any coin taking up `< 1%` of the wallet is grouped into an "Other" category).
+
+### UI Layout ([index.html](file:///c:/Users/feroz/Desktop/stockbot/static/index.html))
+The dashboard is structurally divided into tiers of importance:
+*   **Top Metric Cards:** Total Portfolio Value, Total Invested, Total Unrealized/Realized PNL, Win/Loss Coin Ratio, and Cumulative Trading Fees.
+*   **Portfolio Allocation Visulizer:** The colored stacked progress bar to show diversification.
+*   **Advanced Analytics:** Highlights your greatest single trade and biggest loss of all time.
+*   **Completed Trades Table:** Shows only the positions where you bought and fully sold, resulting in a locked-in profit/loss.
+*   **Balances & Symbol Performance tables:** Your current open holdings, break-even prices, and live wallet contents.
+*   **Activity Ledger tables:** Raw data on Recent Trades, Transfers (Deposits/Withdrawals), and Open limit orders.
+
+### Design System ([style.css](file:///c:/Users/feroz/Desktop/stockbot/static/style.css))
+Built with a "Glassmorphism" aesthetic overlaying a deep dark mode:
+*   **Glass effect:** Uses `backdrop-filter: blur(16px)` combined with semi-transparent RGBA backgrounds to make cards look like frosted glass over the background gradient.
+*   **Highlights:** Elements flash with `var(--accent)` (Binance Gold #F0B90B) for branding.
+*   **Dynamic Colors:** Positive numbers automatically inherit `--green` colors, while negative numbers inherit `--red`.

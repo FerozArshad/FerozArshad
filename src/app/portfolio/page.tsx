@@ -1,5 +1,6 @@
 "use client";
 import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { portfolioData } from "@/data/portfolioData";
@@ -65,6 +66,7 @@ export default function PortfolioPage() {
                     ))}
                 </div>
             </div>
+            <Footer />
         </>
     );
 }

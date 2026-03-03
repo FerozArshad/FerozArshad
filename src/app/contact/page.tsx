@@ -1,4 +1,5 @@
 import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 import { LeadForm } from "@/components/LeadForm";
 
 export default function ContactPage() {
@@ -31,6 +32,7 @@ export default function ContactPage() {
                     <LeadForm />
                 </div>
             </div>
+            <Footer />
         </>
     );
 }

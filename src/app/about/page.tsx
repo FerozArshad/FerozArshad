@@ -1,25 +1,52 @@
 "use client";
 import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
 import { motion } from "framer-motion";
+import {
+    IconBrandNextjs, IconBrandPython, IconBrandReact, IconBrandTailwind,
+    IconBrandMysql, IconBrandNodejs, IconBrandWordpress, IconShoppingCart,
+    IconBrandDocker, IconBrandGit, IconBrandFigma, IconBrandDjango,
+    IconApi, IconBrain, IconSpider, IconBrandHtml5, IconBrandCss3
+} from "@tabler/icons-react";
+
+const skills = [
+    { icon: IconBrandNextjs, name: "Next.js", category: "Frontend" },
+    { icon: IconBrandReact, name: "React", category: "Frontend" },
+    { icon: IconBrandTailwind, name: "Tailwind CSS", category: "Frontend" },
+    { icon: IconBrandHtml5, name: "HTML5", category: "Frontend" },
+    { icon: IconBrandCss3, name: "CSS3", category: "Frontend" },
+    { icon: IconBrandFigma, name: "Figma", category: "Frontend" },
+    { icon: IconBrandPython, name: "Python", category: "Backend" },
+    { icon: IconBrandDjango, name: "Django", category: "Backend" },
+    { icon: IconApi, name: "FastAPI", category: "Backend" },
+    { icon: IconBrandNodejs, name: "Node.js", category: "Backend" },
+    { icon: IconBrandMysql, name: "MariaDB/SQL", category: "Backend" },
+    { icon: IconBrandDocker, name: "Docker", category: "Backend" },
+    { icon: IconBrandWordpress, name: "WordPress", category: "CMS" },
+    { icon: IconShoppingCart, name: "Shopify", category: "CMS" },
+    { icon: IconBrain, name: "OpenAI", category: "AI" },
+    { icon: IconSpider, name: "Selenium", category: "AI" },
+    { icon: IconBrandGit, name: "Git/GitHub", category: "Tools" },
+];
 
 export default function AboutPage() {
     return (
         <>
             <Navbar />
-            <div className="max-w-4xl mx-auto px-4 py-20">
+            <div className="max-w-5xl mx-auto px-4 py-20">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
                 >
-                    <h1 className="text-5xl font-extrabold mb-6 tracking-tight">About Feroz Arshad</h1>
-                    <p className="text-xl text-neutral-400 mb-16 leading-relaxed">
-                        From a Computer Science graduate to a Top-Rated developer driving $1M+ in client revenue.
+                    <h1 className="text-5xl font-extrabold mb-6 tracking-tight bg-clip-text text-transparent bg-gradient-to-b from-white to-neutral-500">About Feroz Arshad</h1>
+                    <p className="text-xl text-neutral-400 mb-16 leading-relaxed max-w-2xl">
+                        From a Computer Science graduate to a Top-Rated developer driving $1M+ in client revenue across 300+ projects.
                     </p>
                 </motion.div>
 
                 <div className="space-y-16">
-                    {/* Section 1 */}
+                    {/* Section 1: Journey */}
                     <motion.section
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -33,12 +60,37 @@ export default function AboutPage() {
                                 I began my journey in 2021, focusing heavily on WordPress and E-Commerce, where I quickly became a Top-Rated seller on Fiverr and Upwork, completing over 300 projects. However, I realized the limitations of traditional CMS environments when scaling enterprise workflows.
                             </p>
                             <p className="text-neutral-300 leading-relaxed text-lg">
-                                This drove me to master Full-Stack SaaS architecture and AI Automation. Today, I don't just build beautiful interfaces; I build the autonomous backend systems (n8n, OpenAI, FastApi) that power multi-million dollar business pipelines.
+                                This drove me to master Full-Stack SaaS architecture and AI Automation. Today, I don't just build beautiful interfaces; I build the autonomous backend systems (n8n, OpenAI, FastAPI) that power multi-million dollar business pipelines.
                             </p>
                         </div>
                     </motion.section>
 
-                    {/* Section 2: Timeline */}
+                    {/* Section 2: Tech Skills Grid */}
+                    <motion.section
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        <h2 className="text-3xl font-bold mb-10 pl-2">Technical Proficiency</h2>
+                        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-4">
+                            {skills.map((skill, idx) => (
+                                <motion.div
+                                    key={idx}
+                                    initial={{ opacity: 0, scale: 0.8 }}
+                                    whileInView={{ opacity: 1, scale: 1 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.3, delay: idx * 0.03 }}
+                                    className="group flex flex-col items-center gap-3 p-4 rounded-2xl bg-card border border-white/5 hover:border-primary/30 hover:bg-white/5 transition duration-300 cursor-default"
+                                >
+                                    <skill.icon className="w-8 h-8 text-neutral-500 group-hover:text-primary transition duration-300" stroke={1.5} />
+                                    <span className="text-xs text-neutral-500 font-medium text-center group-hover:text-neutral-300 transition">{skill.name}</span>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </motion.section>
+
+                    {/* Section 3: Timeline */}
                     <motion.section
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -89,6 +141,7 @@ export default function AboutPage() {
                     </motion.section>
                 </div>
             </div>
+            <Footer />
         </>
     );
 }
