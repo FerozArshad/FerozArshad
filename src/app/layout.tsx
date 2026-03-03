@@ -15,23 +15,29 @@ export const metadata: Metadata = {
   authors: [{ name: "Feroz Arshad" }],
 };
 
+import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeSwitcher } from "@/components/ThemeSwitcher";
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} font-sans antialiased bg-black text-white selection:bg-primary selection:text-white relative min-h-screen`}>
-        {/* Ambient background glow effect */}
-        <div className="fixed inset-0 z-[-1] bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(59,130,246,0.15),rgba(0,0,0,0))]"></div>
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          {/* Ambient background glow effect */}
+          <div className="fixed inset-0 z-[-1] bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(59,130,246,0.15),rgba(0,0,0,0))]"></div>
 
-        {/* Main Content */}
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16">
-          <PageTransition>
-            {children}
-          </PageTransition>
-        </main>
+          {/* Main Content */}
+          <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-16">
+            <PageTransition>
+              {children}
+            </PageTransition>
+          </main>
+          <ThemeSwitcher />
+        </ThemeProvider>
       </body>
     </html>
   );

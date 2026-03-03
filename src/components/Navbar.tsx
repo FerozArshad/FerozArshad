@@ -2,8 +2,15 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 export const Navbar = () => {
+    const { resolvedTheme } = useTheme();
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => setMounted(true), []);
+
     return (
         <motion.nav
             initial={{ y: -20, opacity: 0 }}
@@ -12,7 +19,11 @@ export const Navbar = () => {
         >
             <div className="flex items-center justify-between px-6 py-3 bg-black/50 backdrop-blur-md border border-white/10 rounded-full shadow-2xl w-full max-w-3xl">
                 <Link href="/" className="flex items-center gap-3">
-                    <Image src="/images/feroz-logo.svg" alt="Feroz Arshad Logo" width={32} height={32} />
+                    {mounted && resolvedTheme === "light" ? (
+                        <Image src="/images/logo-black.png" alt="Feroz Arshad Logo" width={32} height={32} />
+                    ) : (
+                        <Image src="/images/logo-white.webp" alt="Feroz Arshad Logo" width={32} height={32} />
+                    )}
                     <span className="text-white font-bold text-xl tracking-tight hidden sm:block">Feroz Arshad</span>
                 </Link>
                 <div className="hidden md:flex space-x-8 text-sm font-medium text-neutral-300">
