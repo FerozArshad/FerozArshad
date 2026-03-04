@@ -1,8 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // STANDALONE OUTPUT: Creates a minimal self-contained build
-  output: "standalone",
+  // Custom Server Mode Active (server.js bypassing Next CLI)
 
   // Disable source maps in production
   productionBrowserSourceMaps: false,
