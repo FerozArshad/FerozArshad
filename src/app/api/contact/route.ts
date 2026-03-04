@@ -1,7 +1,31 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 
+// In-Memory Rate Limiter to stop bots from crashing Node on Hostinger
+const requests = new Map();
+
+function rateLimit(ip: string) {
+    const now = Date.now();
+    const window = 60000; // 1 minute window
+
+    if (!requests.has(ip)) {
+        requests.set(ip, []);
+    }
+
+    const timestamps = requests.get(ip).filter((t: number) => now - t < window);
+    timestamps.push(now);
+    requests.set(ip, timestamps);
+
+    return timestamps.length < 20; // Max 20 requests per minute per IP
+}
+
 export async function POST(req: Request) {
+    // 1. Enforce Rate Limiting
+    const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    if (ip !== "unknown" && !rateLimit(ip)) {
+        return NextResponse.json({ error: "Too many requests. Please wait a minute." }, { status: 429 });
+    }
+
     try {
         const body = await req.json();
         const { name, email, service, message } = body;
