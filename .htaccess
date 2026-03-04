@@ -1,0 +1,13 @@
+# Phusion Passenger Process Limits (Critical for Hostinger Shared Hosting)
+# This strictly limits Node to 4 max processes to stay well below the 200 NPROC limit
+PassengerMaxPoolSize 6
+PassengerMinInstances 1
+PassengerMaxInstancesPerApp 4
+PassengerMaxRequests 1000
+
+# LiteSpeed Security & IP Blocking
+<IfModule Litespeed>
+  # Block identified abusive scraper hitting Next.js 1300+ times
+  Deny from 185.177.72.52
+  Deny from 2400:adc7:2110:2f00:8c4f:f6b1:eb9b:8799
+</IfModule>

@@ -1,26 +1,22 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Reduces memory usage significantly by building self-contained server
+  output: "standalone",
 
-  // Disable source maps in production
-  productionBrowserSourceMaps: false,
-
-  // Limit build workers to 1
+  // Hard cap Webpack build concurrency to save CPU
   experimental: {
     workerThreads: false,
     cpus: 1,
   },
 
-  // Disable image optimization (sharp is memory-heavy)
+  // Disable Sharp native image optimization (massive memory sink)
   images: {
     unoptimized: true,
   },
 
-  // Compress output
-  compress: true,
-
-  // Disable X-Powered-By header
   poweredByHeader: false,
+  compress: true,
 
   // Strict React mode
   reactStrictMode: true,

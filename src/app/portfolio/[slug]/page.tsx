@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { IconArrowLeft } from "@tabler/icons-react";
 import Link from "next/link";
 
+export const dynamic = "force-static";
+
 export default function CaseStudyPage({ params }: { params: { slug: string } }) {
     const study = portfolioData.find((p) => p.slug === params.slug);
 

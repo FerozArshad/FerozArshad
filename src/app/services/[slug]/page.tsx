@@ -2,6 +2,8 @@ import { Navbar } from "@/components/Navbar";
 import { servicesData } from "@/data/servicesData";
 import { notFound } from "next/navigation";
 
+export const dynamic = "force-static";
+
 export default function SingleServicePage({ params }: { params: { slug: string } }) {
     const service = servicesData.find((s) => s.slug === params.slug);
 
