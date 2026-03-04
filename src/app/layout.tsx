@@ -7,6 +7,7 @@ import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 import { CustomCursor } from "@/components/CustomCursor";
 import { GoogleAnalytics, GoogleTagManager, GTMNoScript } from "@/components/GoogleAnalytics";
 import { PersonSchema, WebsiteSchema, ProfessionalServiceSchema } from "@/components/StructuredData";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const syne = Syne({
   variable: "--font-syne",
@@ -112,7 +113,6 @@ export default function RootLayout({
 
           <CustomCursor />
 
-          {/* Main Content */}
           <main className="w-full relative z-10">
             <PageTransition>
               {children}
@@ -120,6 +120,7 @@ export default function RootLayout({
           </main>
           <ThemeSwitcher />
         </ThemeProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
