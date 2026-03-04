@@ -25,12 +25,23 @@ export const LeadForm = () => {
 
             if (res.ok) {
                 setStatus("success");
-                // Track successful lead in GA4 / GTM
+
+                // Track successful lead in GA4
                 trackEvent("generate_lead", {
                     event_category: "contact_form",
                     event_label: formData.service,
                     value: 1,
                 });
+
+                // Explicitly push to Google Tag Manager dataLayer for custom event triggers
+                if (typeof window !== "undefined" && (window as any).dataLayer) {
+                    (window as any).dataLayer.push({
+                        event: "lead_form_submitted",
+                        form_type: "contact",
+                        service_selected: formData.service
+                    });
+                }
+
                 setFormData({ name: "", email: "", service: "AI Automation", message: "" });
             } else {
                 setStatus("error");
