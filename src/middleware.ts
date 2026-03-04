@@ -7,6 +7,7 @@ const key = new TextEncoder().encode(secretKey);
 // ─── BLOCKED IPs (abusive bots / scrapers) ───
 const BLOCKED_IPS = new Set([
     "185.177.72.52", // 1382 requests in 7 days
+    "2400:adc7:2110:2f00:8c4f:f6b1:eb9b:8799", // newly identified heavy hammer
 ]);
 
 export async function middleware(req: NextRequest) {
@@ -41,8 +42,8 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
+    // Match all routes except internal Next.js static files and images
     matcher: [
-        "/admin/:path*",
-        "/api/:path*",
+        "/((?!_next/static|_next/image|favicon.ico).*)",
     ],
 };
