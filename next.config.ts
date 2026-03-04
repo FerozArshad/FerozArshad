@@ -10,7 +10,6 @@ const nextConfig: NextConfig = {
 
   // Limit static generation concurrency to prevent process explosion
   experimental: {
-    // Cap the number of concurrent workers for static page generation
     workerThreads: false,
     cpus: 1,
   },
