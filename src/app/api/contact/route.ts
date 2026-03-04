@@ -82,11 +82,13 @@ export async function POST(req: Request) {
             });
             console.log(`[API/Contact] SMTP email transmitted successfully for: ${email}`);
         } catch (smtpError: any) {
-            console.error("[API/Contact] SMTP ERROR:", smtpError.message || smtpError);
-            return NextResponse.json({ error: "SMTP Email transmission failed", details: smtpError.message || "Unknown SMTP error" }, { status: 500 });
+            console.error("[API/Contact] SMTP ERROR (Non-Blocking):", smtpError.message || smtpError);
+            console.error("The Lead was saved to the DB, but the admin email notification failed to send. Check Zoho SMTP credentials.");
+            // We intentionally do NOT return a 500 here because the Lead was successfully captured by the DB.
+            // Returning 200 ensures the user perfectly enters the /thank-you funnel.
         }
 
-        return NextResponse.json({ message: "Message sent successfully" }, { status: 200 });
+        return NextResponse.json({ message: "Lead captured successfully" }, { status: 200 });
 
     } catch (error: any) {
         console.error("[API/Contact] CRITICAL FAILURE:", error.message || error);
