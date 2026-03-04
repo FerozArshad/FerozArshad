@@ -93,8 +93,15 @@ export default function RootLayout({
         <PersonSchema />
         <WebsiteSchema />
         <ProfessionalServiceSchema />
-        <GoogleAnalytics />
-        <GoogleTagManager />
+        {/* Google Analytics GA4 - Server-rendered for verification */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-QPD8JM6CKH"></script>
+        <script dangerouslySetInnerHTML={{
+          __html: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-QPD8JM6CKH', { page_path: window.location.pathname });
+        `}} />
       </head>
       <body className={`${spaceGrotesk.variable} ${syne.variable} font-sans antialiased bg-black text-white selection:bg-primary selection:text-white relative min-h-screen overflow-x-hidden`}>
         <GTMNoScript />
