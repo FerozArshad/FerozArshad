@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 export const LeadForm = () => {
     const router = useRouter();
     const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
+    const [errorMessage, setErrorMessage] = useState("");
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -43,12 +44,17 @@ export const LeadForm = () => {
                 }
 
                 setFormData({ name: "", email: "", service: "AI Automation", message: "" });
+                // Redirect immediately
+                router.push('/thank-you');
             } else {
+                const data = await res.json();
                 setStatus("error");
+                setErrorMessage(data.details ? `${data.error}: ${data.details}` : data.error || "Unknown API Error");
                 trackEvent("form_error", { event_category: "contact_form", event_label: "api_error" });
             }
-        } catch (error) {
+        } catch (error: any) {
             setStatus("error");
+            setErrorMessage(error.message || "A network or CORS failure occurred while communicating with the server.");
             trackEvent("form_error", { event_category: "contact_form", event_label: "network_error" });
         }
     };
@@ -104,7 +110,16 @@ export const LeadForm = () => {
                     {status === "loading" ? "Initializing Pipeline..." : "Send to Pipeline"}
                 </button>
 
-                {status === "error" && <p className="text-red-500 text-sm text-center mt-2">Error sending message. Please try again.</p>}
+                {status === "error" && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-sm text-center mt-4"
+                    >
+                        <p className="font-bold mb-1">Transmission Failed</p>
+                        <p className="text-xs opacity-80">{errorMessage}</p>
+                    </motion.div>
+                )}
             </form>
         </div>
     );
