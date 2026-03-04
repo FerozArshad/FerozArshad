@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { trackEvent } from "@/components/GoogleAnalytics";
 
 export const LeadForm = () => {
     const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -24,12 +25,20 @@ export const LeadForm = () => {
 
             if (res.ok) {
                 setStatus("success");
+                // Track successful lead in GA4 / GTM
+                trackEvent("generate_lead", {
+                    event_category: "contact_form",
+                    event_label: formData.service,
+                    value: 1,
+                });
                 setFormData({ name: "", email: "", service: "AI Automation", message: "" });
             } else {
                 setStatus("error");
+                trackEvent("form_error", { event_category: "contact_form", event_label: "api_error" });
             }
         } catch (error) {
             setStatus("error");
+            trackEvent("form_error", { event_category: "contact_form", event_label: "network_error" });
         }
     };
 
