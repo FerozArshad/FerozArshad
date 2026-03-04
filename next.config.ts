@@ -21,6 +21,9 @@ const nextConfig: NextConfig = {
   // Strict React mode
   reactStrictMode: true,
 
+  // Force output root and suppress lockfile nesting bug
+  outputFileTracingRoot: __dirname,
+
   // Externalize heavy packages from server bundle
   serverExternalPackages: ["@prisma/client", "bcryptjs", "nodemailer"],
 };
