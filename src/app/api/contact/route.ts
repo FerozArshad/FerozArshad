@@ -31,6 +31,17 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
         }
 
+        // 1. Store the Lead in the Database via Prisma
+        const { prisma } = await import('@/lib/prisma');
+        await prisma.lead.create({
+            data: {
+                name,
+                email,
+                service,
+                message
+            }
+        });
+
         // Zoho SMTP transporter
         const transporter = nodemailer.createTransport({
             host: process.env.SMTP_HOST || 'smtp.zoho.com',
@@ -44,7 +55,7 @@ export async function POST(req: Request) {
 
         await transporter.sendMail({
             from: `"ferozarshad.com" <${process.env.SMTP_USER}>`,
-            to: process.env.SMTP_TO || process.env.SMTP_USER,
+            to: process.env.SMTP_TO || 'info@ferozarshad.com',
             replyTo: email,
             subject: `New Lead: ${service} inquiry from ${name}`,
             html: `

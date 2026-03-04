@@ -2,9 +2,11 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { trackEvent } from "@/components/GoogleAnalytics";
+import { useRouter } from "next/navigation";
 
 export const LeadForm = () => {
-    const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+    const router = useRouter();
+    const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -24,8 +26,6 @@ export const LeadForm = () => {
             });
 
             if (res.ok) {
-                setStatus("success");
-
                 // Track successful lead in GA4
                 trackEvent("generate_lead", {
                     event_category: "contact_form",
@@ -60,67 +60,52 @@ export const LeadForm = () => {
 
             <h3 className="text-2xl font-bold mb-6 text-white text-center">Let's Build Something</h3>
 
-            {status === "success" ? (
-                <motion.div
-                    initial={{ scale: 0.9, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    className="text-center py-10"
-                >
-                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-500/20 text-green-500 mb-4">
-                        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg>
-                    </div>
-                    <p className="text-white font-bold text-lg">Message Sent!</p>
-                    <p className="text-neutral-400 text-sm mt-2">My automation pipeline has forwarded this to my CRM. I'll be in touch shortly.</p>
-                    <button onClick={() => setStatus("idle")} className="mt-8 text-primary text-sm hover:underline">Send another message</button>
-                </motion.div>
-            ) : (
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    <div>
-                        <label className="block text-sm font-medium text-neutral-400 mb-1">Your Name</label>
-                        <input
-                            required type="text"
-                            value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                            className="w-full px-4 py-3 rounded-xl bg-neutral-900 border border-neutral-800 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition text-white"
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium text-neutral-400 mb-1">Email Address</label>
-                        <input
-                            required type="email"
-                            value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                            className="w-full px-4 py-3 rounded-xl bg-neutral-900 border border-neutral-800 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition text-white"
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium text-neutral-400 mb-1">Project Type</label>
-                        <select
-                            value={formData.service} onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                            className="w-full px-4 py-3 rounded-xl bg-neutral-900 border border-neutral-800 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition text-white appearance-none"
-                        >
-                            <option>AI Automation & n8n</option>
-                            <option>Full-Stack SaaS (Python/Next.js)</option>
-                            <option>High-End E-Commerce</option>
-                            <option>Custom WordPress / UI Design</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium text-neutral-400 mb-1">Message</label>
-                        <textarea
-                            required rows={3}
-                            value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                            className="w-full px-4 py-3 rounded-xl bg-neutral-900 border border-neutral-800 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition text-white resize-none"
-                        ></textarea>
-                    </div>
-                    <button
-                        type="submit" disabled={status === "loading"}
-                        className="w-full bg-primary hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-xl transition flex justify-center items-center"
+            <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                    <label className="block text-sm font-medium text-neutral-400 mb-1">Your Name</label>
+                    <input
+                        required type="text"
+                        value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        className="w-full px-4 py-3 rounded-xl bg-neutral-900 border border-neutral-800 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition text-white"
+                    />
+                </div>
+                <div>
+                    <label className="block text-sm font-medium text-neutral-400 mb-1">Email Address</label>
+                    <input
+                        required type="email"
+                        value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        className="w-full px-4 py-3 rounded-xl bg-neutral-900 border border-neutral-800 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition text-white"
+                    />
+                </div>
+                <div>
+                    <label className="block text-sm font-medium text-neutral-400 mb-1">Project Type</label>
+                    <select
+                        value={formData.service} onChange={(e) => setFormData({ ...formData, service: e.target.value })}
+                        className="w-full px-4 py-3 rounded-xl bg-neutral-900 border border-neutral-800 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition text-white appearance-none"
                     >
-                        {status === "loading" ? "Initializing Pipeline..." : "Send to Pipeline"}
-                    </button>
+                        <option>AI Automation & n8n</option>
+                        <option>Full-Stack SaaS (Python/Next.js)</option>
+                        <option>High-End E-Commerce</option>
+                        <option>Custom WordPress / UI Design</option>
+                    </select>
+                </div>
+                <div>
+                    <label className="block text-sm font-medium text-neutral-400 mb-1">Message</label>
+                    <textarea
+                        required rows={3}
+                        value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                        className="w-full px-4 py-3 rounded-xl bg-neutral-900 border border-neutral-800 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition text-white resize-none"
+                    ></textarea>
+                </div>
+                <button
+                    type="submit" disabled={status === "loading"}
+                    className="w-full bg-primary hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-xl transition flex justify-center items-center"
+                >
+                    {status === "loading" ? "Initializing Pipeline..." : "Send to Pipeline"}
+                </button>
 
-                    {status === "error" && <p className="text-red-500 text-sm text-center mt-2">Error sending message. Please try again.</p>}
-                </form>
-            )}
+                {status === "error" && <p className="text-red-500 text-sm text-center mt-2">Error sending message. Please try again.</p>}
+            </form>
         </div>
     );
 };

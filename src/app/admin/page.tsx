@@ -5,18 +5,19 @@ export const dynamic = "force-dynamic"; // Ensure dashboard stats are always up 
 
 export default async function AdminDashboard() {
     // Fetch Quick Stats concurrently to avoid waterfalls
-    const [projectCount, serviceCount, insightCount, userCount] = await Promise.all([
+    const [projectCount, serviceCount, insightCount, userCount, leadCount] = await Promise.all([
         prisma.project.count(),
         prisma.service.count(),
         prisma.insight.count(),
-        prisma.user.count()
+        prisma.user.count(),
+        prisma.lead.count()
     ]);
 
     const stats = [
         { title: "Total Case Studies", count: projectCount, icon: IconBriefcase, color: "text-blue-500", bg: "bg-blue-500/10" },
         { title: "Active Services", count: serviceCount, icon: IconTools, color: "text-green-500", bg: "bg-green-500/10" },
-        { title: "Published Insights", count: insightCount, icon: IconArticle, color: "text-purple-500", bg: "bg-purple-500/10" },
-        { title: "Admin Access", count: userCount, icon: IconUsers, color: "text-orange-500", bg: "bg-orange-500/10" }
+        { title: "Portfolio Leads", count: leadCount, icon: IconUsers, color: "text-green-400", bg: "bg-green-400/10" },
+        { title: "Published Insights", count: insightCount, icon: IconArticle, color: "text-purple-500", bg: "bg-purple-500/10" }
     ];
 
     return (
