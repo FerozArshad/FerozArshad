@@ -95,17 +95,10 @@ export default function RootLayout({
         <WebsiteSchema />
         <ProfessionalServiceSchema />
       </head>
-      <body className={`${spaceGrotesk.variable} ${syne.variable} font-sans antialiased bg-black text-white selection:bg-primary selection:text-white relative min-h-screen overflow-x-hidden`}>
-        {/* Next.js Optimized Google Analytics (GA4) */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-QPD8JM6CKH"></script>
-        <script id="google-analytics" dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-QPD8JM6CKH');
-          `
-        }} />
+      <body className={`${spaceGrotesk.variable} ${syne.variable} font-sans antialiased bg-background text-foreground selection:bg-primary selection:text-white relative min-h-screen overflow-x-hidden transition-colors duration-300`}>
+        <GTMNoScript />
+        <GoogleTagManager />
+        <GoogleAnalytics />
 
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           {/* Global Texture Noise */}
