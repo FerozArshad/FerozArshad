@@ -11,7 +11,7 @@ export default function PortfolioPage() {
     const yText = useTransform(scrollYProgress, [0, 1], [0, 200]);
 
     return (
-        <div className="relative w-full bg-black text-white selection:bg-primary selection:text-white">
+        <div className="relative w-full bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
             <Navbar />
 
             {/* AWWWARDS HEADER */}
@@ -43,12 +43,12 @@ export default function PortfolioPage() {
                 </div>
             </section>
 
-            <div className="w-full bg-neutral-950 relative z-20 border-t border-white/5 rounded-t-[3rem] py-32 px-4 md:px-12">
+            <div className="w-full bg-card relative z-20 border-t border-border rounded-t-[3rem] py-32 px-4 md:px-12">
                 <div className="max-w-7xl mx-auto">
                     {/* Categories Filter Placeholder */}
                     <div className="flex gap-4 mb-24 flex-wrap">
                         {["All Logic", "AI & Automation", "SaaS Systems", "WordPress Frameworks"].map((tag) => (
-                            <span key={tag} className="px-6 py-3 rounded-full border border-white/5 text-xs font-heading font-bold tracking-widest uppercase hover:bg-white hover:text-black cursor-pointer transition duration-300">
+                            <span key={tag} className="px-6 py-3 rounded-full border border-border text-xs font-heading font-bold tracking-widest uppercase hover:bg-foreground hover:text-background cursor-pointer transition duration-300">
                                 {tag}
                             </span>
                         ))}
@@ -66,11 +66,11 @@ export default function PortfolioPage() {
                                 className={`group ${idx % 2 === 1 ? 'md:mt-32' : ''}`}
                             >
                                 <Link href={`/portfolio/${c.slug}`} className="block">
-                                    <div className="w-full aspect-[4/3] rounded-[2rem] bg-black mb-8 overflow-hidden relative border border-white/5">
+                                    <div className="w-full aspect-[4/3] rounded-[2rem] bg-muted mb-8 overflow-hidden relative border border-border">
                                         {/* Abstract Geometric Glow */}
                                         <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 mix-blend-overlay z-10"></div>
                                         <div className="w-full h-full flex items-center justify-center bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.1),transparent)]">
-                                            <span className="font-heading font-bold text-5xl text-white/5 uppercase tracking-widest">{c.category.split(" ")[0]}</span>
+                                            <span className="font-heading font-bold text-5xl text-foreground/10 uppercase tracking-widest">{c.category.split(" ")[0]}</span>
                                         </div>
                                     </div>
                                     <div className="flex gap-6 items-start justify-between">
@@ -79,8 +79,8 @@ export default function PortfolioPage() {
                                             <h3 className="text-3xl md:text-5xl font-heading font-bold group-hover:text-primary transition-colors leading-[0.9] tracking-tighter uppercase mb-4">{c.title}</h3>
                                             <p className="text-neutral-400 font-sans line-clamp-2">{c.problem}</p>
                                         </div>
-                                        <div className="w-14 h-14 rounded-full border border-white/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary group-hover:border-primary transition-colors duration-500 bg-black">
-                                            <IconArrowUpRight className="w-6 h-6 text-white" />
+                                        <div className="w-14 h-14 rounded-full border border-border flex items-center justify-center flex-shrink-0 group-hover:bg-primary group-hover:border-primary group-hover:text-white transition-colors duration-500 bg-card">
+                                            <IconArrowUpRight className="w-6 h-6 text-foreground group-hover:text-white transition-colors" />
                                         </div>
                                     </div>
                                 </Link>

@@ -37,37 +37,37 @@ export default function AdminLogin() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-[#050505] p-4">
+        <div className="min-h-screen flex items-center justify-center bg-background p-4">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="w-full max-w-md p-8 rounded-3xl bg-neutral-900/50 border border-white/10 shadow-2xl relative overflow-hidden"
+                className="w-full max-w-md p-8 rounded-3xl bg-card border border-border shadow-2xl relative overflow-hidden"
             >
                 {/* Decorative Glow */}
                 <div className="absolute -top-10 -right-10 w-32 h-32 bg-primary/20 blur-3xl rounded-full"></div>
 
-                <h1 className="text-3xl font-extrabold text-white mb-2 text-center">Admin Access</h1>
-                <p className="text-neutral-400 text-sm mb-8 text-center tracking-widest uppercase">Secure Command Center</p>
+                <h1 className="text-3xl font-extrabold text-foreground mb-2 text-center">Admin Access</h1>
+                <p className="text-muted-foreground text-sm mb-8 text-center tracking-widest uppercase">Secure Command Center</p>
 
                 <form onSubmit={handleLogin} className="space-y-6">
                     <div>
-                        <label className="block text-sm font-medium text-neutral-400 mb-1">Email</label>
+                        <label className="block text-sm font-medium text-muted-foreground mb-1">Email</label>
                         <input
                             type="email"
                             required
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            className="w-full px-4 py-3 rounded-xl bg-black border border-neutral-800 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition text-white"
+                            className="w-full px-4 py-3 rounded-xl bg-muted border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition text-foreground"
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-neutral-400 mb-1">Password</label>
+                        <label className="block text-sm font-medium text-muted-foreground mb-1">Password</label>
                         <input
                             type="password"
                             required
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="w-full px-4 py-3 rounded-xl bg-black border border-neutral-800 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition text-white"
+                            className="w-full px-4 py-3 rounded-xl bg-muted border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition text-foreground"
                         />
                     </div>
 

@@ -60,34 +60,34 @@ export const LeadForm = () => {
     };
 
     return (
-        <div className="w-full max-w-md mx-auto p-8 rounded-3xl bg-card border border-white/10 shadow-2xl relative overflow-hidden">
+        <div className="w-full max-w-md mx-auto p-8 rounded-3xl bg-card border border-border shadow-2xl relative overflow-hidden">
             {/* Decorative Glow */}
             <div className="absolute -top-10 -right-10 w-32 h-32 bg-primary/20 blur-3xl rounded-full"></div>
 
-            <h3 className="text-2xl font-bold mb-6 text-white text-center">Let's Build Something</h3>
+            <h3 className="text-2xl font-bold mb-6 text-foreground text-center">Let's Build Something</h3>
 
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                    <label className="block text-sm font-medium text-neutral-400 mb-1">Your Name</label>
+                    <label className="block text-sm font-medium text-muted-foreground mb-1">Your Name</label>
                     <input
                         required type="text"
                         value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-neutral-900 border border-neutral-800 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition text-white"
+                        className="w-full px-4 py-3 rounded-xl bg-muted border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition text-foreground"
                     />
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-neutral-400 mb-1">Email Address</label>
+                    <label className="block text-sm font-medium text-muted-foreground mb-1">Email Address</label>
                     <input
                         required type="email"
                         value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-neutral-900 border border-neutral-800 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition text-white"
+                        className="w-full px-4 py-3 rounded-xl bg-muted border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition text-foreground"
                     />
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-neutral-400 mb-1">Project Type</label>
+                    <label className="block text-sm font-medium text-muted-foreground mb-1">Project Type</label>
                     <select
                         value={formData.service} onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-neutral-900 border border-neutral-800 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition text-white appearance-none"
+                        className="w-full px-4 py-3 rounded-xl bg-muted border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition text-foreground appearance-none"
                     >
                         <option>AI Automation & n8n</option>
                         <option>Full-Stack SaaS (Python/Next.js)</option>
@@ -96,11 +96,11 @@ export const LeadForm = () => {
                     </select>
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-neutral-400 mb-1">Message</label>
+                    <label className="block text-sm font-medium text-muted-foreground mb-1">Message</label>
                     <textarea
                         required rows={3}
                         value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-neutral-900 border border-neutral-800 focus:border-primary focus:ring-1 focus:ring-primary outline-none transition text-white resize-none"
+                        className="w-full px-4 py-3 rounded-xl bg-muted border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none transition text-foreground resize-none"
                     ></textarea>
                 </div>
                 <button

@@ -34,7 +34,7 @@ export default function About() {
     ];
 
     return (
-        <div className="relative w-full bg-black text-white selection:bg-primary selection:text-white">
+        <div className="relative w-full bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
             <Navbar />
 
             {/* AWWWARDS HEADER */}
@@ -63,7 +63,7 @@ export default function About() {
                 </div>
             </section>
 
-            <div className="w-full bg-neutral-950 relative z-20 border-t border-white/5 rounded-t-[3rem] pt-32 pb-32 px-4 md:px-12">
+            <div className="w-full bg-card relative z-20 border-t border-border rounded-t-[3rem] pt-32 pb-32 px-4 md:px-12">
 
                 {/* ═════════ THE NARRATIVE ═════════ */}
                 <section className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 mb-40">
@@ -78,7 +78,7 @@ export default function About() {
                             With over 300+ successful enterprise deployments globally, my mission is to continuously blur the line between highly scalable backend logic and award-winning frontend experiences.
                         </p>
                         <MagneticWrapper>
-                            <Link href="/contact" className="inline-flex items-center gap-3 font-heading font-bold text-lg uppercase tracking-widest text-primary border-b border-primary pb-1 hover:text-white hover:border-white transition-colors">
+                            <Link href="/contact" className="inline-flex items-center gap-3 font-heading font-bold text-lg uppercase tracking-widest text-primary border-b border-primary pb-1 hover:text-foreground hover:border-foreground transition-colors">
                                 Start A Project <IconArrowUpRight className="w-6 h-6" />
                             </Link>
                         </MagneticWrapper>
@@ -96,9 +96,9 @@ export default function About() {
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 0.5, delay: idx * 0.05 }}
-                                className="group flex flex-col items-center justify-center p-8 border border-white/5 bg-black hover:bg-white hover:text-black transition-colors duration-500 rounded-2xl cursor-default"
+                                className="group flex flex-col items-center justify-center p-8 border border-border bg-background hover:bg-foreground hover:text-background transition-colors duration-500 rounded-2xl cursor-default"
                             >
-                                <skill.icon className="w-10 h-10 mb-4 text-neutral-500 group-hover:text-black transition-colors" />
+                                <skill.icon className="w-10 h-10 mb-4 text-muted-foreground group-hover:text-background transition-colors" />
                                 <span className="font-heading font-bold uppercase text-xs tracking-widest">{skill.name}</span>
                             </motion.div>
                         ))}

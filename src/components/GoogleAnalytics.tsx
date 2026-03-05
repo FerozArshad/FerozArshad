@@ -3,7 +3,7 @@
 import Script from "next/script";
 
 const GA_MEASUREMENT_ID = "G-QPD8JM6CKH";
-const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || "GTM-PDLJ9DB4";
 
 export const GoogleAnalytics = () => {
     if (!GA_MEASUREMENT_ID) return null;

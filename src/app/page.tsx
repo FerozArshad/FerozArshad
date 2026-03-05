@@ -52,14 +52,14 @@ export default function Home() {
             className="mt-12 flex gap-6 z-20 relative"
           >
             <MagneticWrapper>
-              <Link href="/portfolio" className="group relative px-8 py-4 bg-white text-black font-heading font-bold uppercase tracking-widest text-sm rounded-full overflow-hidden flex items-center gap-2">
+              <Link href="/portfolio" className="group relative px-8 py-4 bg-foreground text-background font-heading font-bold uppercase tracking-widest text-sm rounded-full overflow-hidden flex items-center gap-2">
                 <span className="relative z-10">Explore Work</span>
                 <IconArrowUpRight className="w-4 h-4 relative z-10 group-hover:rotate-45 transition-transform" />
                 <div className="absolute inset-0 bg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[0.16,1,0.3,1] z-0"></div>
               </Link>
             </MagneticWrapper>
             <MagneticWrapper>
-              <Link href="/contact" className="px-8 py-4 bg-transparent border border-white/20 hover:border-white text-white font-heading font-bold uppercase tracking-widest text-sm rounded-full transition-colors duration-500">
+              <Link href="/contact" className="px-8 py-4 bg-transparent border border-foreground/20 hover:border-foreground text-foreground font-heading font-bold uppercase tracking-widest text-sm rounded-full transition-colors duration-500">
                 Let's Talk
               </Link>
             </MagneticWrapper>
@@ -74,10 +74,10 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="w-full bg-black relative z-20 border-t border-white/10 rounded-t-[3rem] -mt-10 overflow-hidden pt-20 pb-32">
+      <div className="w-full bg-background relative z-20 border-t border-border rounded-t-[3rem] -mt-10 overflow-hidden pt-20 pb-32">
 
         {/* ═══════════════ SECTION 2: ENDLESS MARQUEE ═══════════════ */}
-        <section className="mb-40 py-10 border-y border-white/5 bg-neutral-950/50 backdrop-blur-sm overflow-hidden flex">
+        <section className="mb-40 py-10 border-y border-border bg-foreground/5 backdrop-blur-sm overflow-hidden flex">
           <motion.div
             initial={{ x: 0 }}
             animate={{ x: "-50%" }}
@@ -125,7 +125,7 @@ export default function Home() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: i * 0.1 }}
-                  className="group p-8 rounded-[2rem] bg-card border border-white/5 hover:bg-neutral-900 transition-colors duration-500"
+                  className="group p-8 rounded-[2rem] bg-card border border-border hover:bg-muted transition-colors duration-500"
                 >
                   <svc.icon className="w-10 h-10 text-primary mb-6" stroke={1.5} />
                   <h3 className="text-2xl font-heading font-bold mb-3 group-hover:text-primary transition-colors">{svc.title}</h3>
@@ -142,11 +142,11 @@ export default function Home() {
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-white/10 pb-8"
+            className="flex flex-col md:flex-row justify-between items-end mb-16 border-b border-border pb-8"
           >
             <h2 className="text-5xl md:text-6xl font-heading font-black uppercase">Selected Works</h2>
             <MagneticWrapper>
-              <Link href="/portfolio" className="text-primary font-heading font-bold uppercase text-sm flex items-center gap-2 tracking-widest hover:text-white transition-colors">
+              <Link href="/portfolio" className="text-primary font-heading font-bold uppercase text-sm flex items-center gap-2 tracking-widest hover:text-foreground transition-colors">
                 View Archive <IconArrowUpRight className="w-5 h-5" />
               </Link>
             </MagneticWrapper>
@@ -163,19 +163,19 @@ export default function Home() {
                 className={`group ${idx % 2 === 1 ? 'md:mt-32' : ''}`}
               >
                 <Link href={`/portfolio/${project.slug}`} className="block">
-                  <div className="w-full aspect-[4/3] rounded-[2rem] bg-neutral-900 mb-8 overflow-hidden relative">
+                  <div className="w-full aspect-[4/3] rounded-[2rem] bg-muted mb-8 overflow-hidden relative border border-border">
                     <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-700 mix-blend-overlay z-10"></div>
                     <div className="w-full h-full flex items-center justify-center bg-[radial-gradient(ellipse_at_center,rgba(59,130,246,0.1),transparent)]">
-                      <span className="font-heading font-bold text-4xl text-white/5 uppercase tracking-widest">{project.category.split(" ")[0]}</span>
+                      <span className="font-heading font-bold text-4xl text-foreground/10 uppercase tracking-widest">{project.category.split(" ")[0]}</span>
                     </div>
                   </div>
                   <div className="flex gap-4 items-start justify-between">
                     <div>
-                      <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest mb-2 block">{project.category}</span>
+                      <span className="text-xs font-mono text-muted-foreground uppercase tracking-widest mb-2 block">{project.category}</span>
                       <h3 className="text-3xl font-heading font-bold group-hover:text-primary transition-colors leading-tight">{project.title}</h3>
                     </div>
-                    <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center flex-shrink-0 group-hover:bg-primary group-hover:border-primary transition-colors duration-500">
-                      <IconArrowUpRight className="w-5 h-5 text-white" />
+                    <div className="w-12 h-12 rounded-full border border-border flex items-center justify-center flex-shrink-0 group-hover:bg-primary group-hover:border-primary group-hover:text-white transition-colors duration-500">
+                      <IconArrowUpRight className="w-5 h-5 text-foreground group-hover:text-white" />
                     </div>
                   </div>
                 </Link>

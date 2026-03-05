@@ -15,8 +15,8 @@ export default function ThankYouPage() {
                 <IconCheck className="w-12 h-12" />
             </div>
 
-            <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-6">Transmission Received.</h1>
-            <p className="text-neutral-400 max-w-lg mx-auto mb-10 text-lg leading-relaxed">
+            <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6">Transmission Received.</h1>
+            <p className="text-muted-foreground max-w-lg mx-auto mb-10 text-lg leading-relaxed">
                 Thank you for reaching out. Your inquiry has been successfully routed to my secure CRM.
                 I review all enterprise architecture requests personally and will be in touch within 24 hours.
             </p>

@@ -94,10 +94,10 @@ export default function RootLayout({
         <PersonSchema />
         <WebsiteSchema />
         <ProfessionalServiceSchema />
+        <GoogleTagManager />
       </head>
       <body className={`${spaceGrotesk.variable} ${syne.variable} font-sans antialiased bg-background text-foreground selection:bg-primary selection:text-white relative min-h-screen overflow-x-hidden transition-colors duration-300`}>
         <GTMNoScript />
-        <GoogleTagManager />
         <GoogleAnalytics />
 
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>

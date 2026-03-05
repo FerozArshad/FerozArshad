@@ -11,7 +11,7 @@ export default function ServicesPage() {
     const yText = useTransform(scrollYProgress, [0, 1], [0, 200]);
 
     return (
-        <div className="relative w-full bg-black text-white selection:bg-primary selection:text-white">
+        <div className="relative w-full bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
             <Navbar />
 
             {/* AWWWARDS HEADER */}
@@ -43,7 +43,7 @@ export default function ServicesPage() {
                 </div>
             </section>
 
-            <div className="w-full bg-neutral-950 relative z-20 border-t border-white/5 rounded-t-[3rem] py-32 px-4 md:px-12">
+            <div className="w-full bg-card relative z-20 border-t border-border rounded-t-[3rem] py-32 px-4 md:px-12">
                 <div className="max-w-7xl mx-auto">
                     <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
                         {servicesData.map((service, idx) => {
@@ -57,14 +57,14 @@ export default function ServicesPage() {
                                     transition={{ duration: 0.6, delay: idx * 0.1 }}
                                 >
                                     <Link href={`/services/${service.slug}`} className="group block h-full">
-                                        <div className="relative h-full p-8 lg:p-16 rounded-[2.5rem] bg-black border border-white/5 hover:border-white/20 transition duration-500 overflow-hidden">
+                                        <div className="relative h-full p-8 lg:p-16 rounded-[2.5rem] bg-background border border-border hover:border-foreground/20 transition duration-500 overflow-hidden">
 
                                             {/* Minimalist Hover Background indicator */}
-                                            <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none mix-blend-overlay"></div>
+                                            <div className="absolute inset-0 bg-foreground/5 opacity-0 group-hover:opacity-100 transition duration-500 pointer-events-none mix-blend-overlay"></div>
 
                                             <div className="flex justify-between items-start mb-16 relative z-10">
                                                 <Icon className="h-12 w-12 text-primary mix-blend-difference" stroke={1.5} />
-                                                <div className="w-12 h-12 rounded-full border border-white/5 absolute top-0 right-0 flex items-center justify-center group-hover:bg-primary group-hover:text-black transition duration-300">
+                                                <div className="w-12 h-12 rounded-full border border-border absolute top-0 right-0 flex items-center justify-center group-hover:bg-primary group-hover:text-background transition duration-300">
                                                     <IconArrowRight className="w-5 h-5" />
                                                 </div>
                                             </div>
