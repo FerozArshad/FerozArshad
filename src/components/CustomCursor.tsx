@@ -5,12 +5,21 @@ import { motion, useSpring } from "framer-motion";
 export const CustomCursor = () => {
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [isHovering, setIsHovering] = useState(false);
+    const [isDesktop, setIsDesktop] = useState(false);
+
+    useEffect(() => {
+        if (typeof window !== "undefined" && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+            setIsDesktop(true);
+        }
+    }, []);
 
     // Smooth springs for trailing effect
     const cursorX = useSpring(0, { stiffness: 500, damping: 28 });
     const cursorY = useSpring(0, { stiffness: 500, damping: 28 });
 
     useEffect(() => {
+        if (!isDesktop) return;
+
         const updateMousePosition = (e: MouseEvent) => {
             setMousePosition({ x: e.clientX, y: e.clientY });
             cursorX.set(e.clientX - 16);
@@ -37,6 +46,8 @@ export const CustomCursor = () => {
             window.removeEventListener("mouseover", handleMouseOver);
         };
     }, [cursorX, cursorY]);
+
+    if (!isDesktop) return null;
 
     return (
         <>

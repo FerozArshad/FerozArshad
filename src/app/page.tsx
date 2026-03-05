@@ -31,7 +31,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 50, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="text-[12vw] md:text-[8vw] font-heading font-black uppercase tracking-tighter leading-[0.85] text-white mix-blend-difference"
+            className="text-[12vw] md:text-[8vw] font-heading font-black uppercase tracking-tighter leading-[0.85] text-foreground"
           >
             DIGITAL <br /> <span className="text-primary italic">ARCHITECT</span>
           </motion.div>
@@ -39,8 +39,8 @@ export default function Home() {
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.5, duration: 1 }}
-            className="mt-8 text-lg md:text-xl font-sans text-neutral-400 max-w-xl mx-auto mix-blend-difference z-20"
+            transition={{ delay: 0.3, duration: 1 }}
+            className="mt-8 text-lg md:text-xl font-sans text-muted-foreground max-w-xl mx-auto z-20"
           >
             Engineering autonomous AI logic and high-conversion frontend systems. Breaking the grid. Defying the template.
           </motion.p>
@@ -67,7 +67,7 @@ export default function Home() {
         </motion.div>
 
         {/* Abstract Line Art Typography Background */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20 z-0 overflow-hidden">
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-20 z-0 overflow-hidden hidden md:flex">
           <div className="text-[25vw] font-heading font-extrabold uppercase text-outline whitespace-nowrap opacity-20 -rotate-6">
             FEROZ ARSHAD
           </div>
@@ -193,7 +193,7 @@ export default function Home() {
             transition={{ duration: 1 }}
             className="max-w-7xl mx-auto bg-primary rounded-[3rem] p-12 md:p-24 text-center text-black relative overflow-hidden"
           >
-            <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E')] opacity-30 mix-blend-overlay pointer-events-none"></div>
+            <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E')] opacity-30 mix-blend-overlay pointer-events-none hidden md:block"></div>
             <h2 className="text-6xl md:text-8xl font-heading font-black uppercase leading-none mb-8 tracking-tighter">
               Let's Build <br /> <span className="text-white">Something Epic.</span>
             </h2>

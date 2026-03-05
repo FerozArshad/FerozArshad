@@ -18,7 +18,7 @@ export const Navbar = () => {
             animate={{ y: 0, opacity: 1 }}
             className="fixed top-0 left-0 right-0 z-[100] w-full p-4 md:p-8 pointer-events-none"
         >
-            <div className="flex items-center justify-between w-full max-w-7xl mx-auto pointer-events-auto mix-blend-difference text-white">
+            <div className="flex items-center justify-between w-full max-w-7xl mx-auto pointer-events-auto text-foreground">
                 <MagneticWrapper>
                     <Link href="/" className="flex items-center gap-4 group">
                         <span className="font-heading font-black text-2xl tracking-tighter uppercase leading-none group-hover:italic transition-all">Feroz<br />Arshad</span>
@@ -31,7 +31,7 @@ export const Navbar = () => {
                     <MagneticWrapper><Link href="/about" className="hover:italic transition-all">About</Link></MagneticWrapper>
                 </div>
                 <MagneticWrapper className="pointer-events-auto">
-                    <Link href="/contact" className="fixed top-6 right-6 md:static px-6 py-3 border border-white/30 rounded-full text-xs font-heading font-bold uppercase tracking-widest hover:bg-white hover:text-black hover:scale-105 transition-all mix-blend-difference text-white">
+                    <Link href="/contact" className="fixed top-6 right-6 md:static px-6 py-3 border border-border rounded-full text-xs font-heading font-bold uppercase tracking-widest hover:bg-foreground hover:text-background hover:scale-105 transition-all text-foreground bg-background/50 backdrop-blur-md md:bg-transparent md:backdrop-blur-none">
                         Let's Talk
                     </Link>
                 </MagneticWrapper>
