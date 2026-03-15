@@ -12,7 +12,8 @@ export const LeadForm = () => {
         name: "",
         email: "",
         service: "AI Automation",
-        message: ""
+        message: "",
+        botcheck: "" // Hidden honeypot
     });
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -43,7 +44,7 @@ export const LeadForm = () => {
                     });
                 }
 
-                setFormData({ name: "", email: "", service: "AI Automation", message: "" });
+                setFormData({ name: "", email: "", service: "AI Automation", message: "", botcheck: "" });
                 // Redirect immediately
                 router.push('/thank-you');
             } else {
@@ -67,6 +68,16 @@ export const LeadForm = () => {
             <h3 className="text-2xl font-bold mb-6 text-foreground text-center">Let's Build Something</h3>
 
             <form onSubmit={handleSubmit} className="space-y-4">
+                {/* HONEYPOT - Hidden from humans, visible to bots */}
+                <input
+                    type="text"
+                    name="botcheck"
+                    className="hidden absolute -left-[9999px]"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={formData.botcheck}
+                    onChange={(e) => setFormData({ ...formData, botcheck: e.target.value })}
+                />
                 <div>
                     <label className="block text-sm font-medium text-muted-foreground mb-1">Your Name</label>
                     <input

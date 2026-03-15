@@ -1,5 +1,14 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
+import { z } from 'zod';
+
+const leadSchema = z.object({
+    name: z.string().min(2).max(100),
+    email: z.string().email().max(150),
+    service: z.string().max(100),
+    message: z.string().min(10).max(3000),
+    botcheck: z.string().max(100).optional() // Honeypot
+});
 
 // In-Memory Rate Limiter (serverless-safe, resets per cold start)
 const requests = new Map();
@@ -25,10 +34,19 @@ export async function POST(req: Request) {
 
     try {
         const body = await req.json();
-        const { name, email, service, message } = body;
+        
+        // Strict Validation & Sanitization
+        const result = leadSchema.safeParse(body);
+        if (!result.success) {
+            return NextResponse.json({ error: "Invalid data format or length. Please check your inputs.", details: result.error.format() }, { status: 400 });
+        }
 
-        if (!name || !email || !service || !message) {
-            return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+        const { name, email, service, message, botcheck } = result.data;
+
+        // HONEYPOT: If bots fill out the hidden field, silently reject but return 200
+        if (botcheck) {
+            console.warn(`[API/Contact] SPAM BLOCKED: Honeypot tripped by IP ${ip}`);
+            return NextResponse.json({ message: "Lead captured successfully" }, { status: 200 }); // Trick the bot
         }
 
         // 1. Store the Lead in the Database via Prisma
