@@ -68,7 +68,7 @@ export async function POST(req: Request) {
             return NextResponse.json({ error: "Database storage failed", details: dbError.message || "Unknown DB error" }, { status: 500 });
         }
 
-        // 2. Transmit via Zoho SMTP
+        // 2. Transmit via Zoho SMTP (Background Process / Non-Blocking)
         try {
             const transporter = nodemailer.createTransport({
                 host: process.env.SMTP_HOST || 'smtp.zoho.com',
@@ -80,7 +80,8 @@ export async function POST(req: Request) {
                 },
             });
 
-            await transporter.sendMail({
+            // Fire and Forget (Do not await) to ensure millisecond frontend UI response
+            transporter.sendMail({
                 from: `"ferozarshad.com" <${process.env.SMTP_USER}>`,
                 to: process.env.SMTP_TO || 'info@ferozarshad.com',
                 replyTo: email,
@@ -99,13 +100,12 @@ export async function POST(req: Request) {
                         </div>
                     </div>
                 `,
+            }).catch(smtpError => {
+                 console.error("[API/Contact] SMTP ERROR (Background):", smtpError.message || smtpError);
             });
-            console.log(`[API/Contact] SMTP email transmitted successfully for: ${email}`);
+            console.log(`[API/Contact] SMTP email transmission triggered successfully for: ${email}`);
         } catch (smtpError: any) {
-            console.error("[API/Contact] SMTP ERROR (Non-Blocking):", smtpError.message || smtpError);
-            console.error("The Lead was saved to the DB, but the admin email notification failed to send. Check Zoho SMTP credentials.");
-            // We intentionally do NOT return a 500 here because the Lead was successfully captured by the DB.
-            // Returning 200 ensures the user perfectly enters the /thank-you funnel.
+            console.error("[API/Contact] SMTP INIT ERROR:", smtpError.message || smtpError);
         }
 
         return NextResponse.json({ message: "Lead captured successfully" }, { status: 200 });
