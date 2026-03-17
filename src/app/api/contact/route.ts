@@ -3,10 +3,10 @@ import nodemailer from 'nodemailer';
 import { z } from 'zod';
 
 const leadSchema = z.object({
-    name: z.string().min(2).max(100),
-    email: z.string().email().max(150),
+    name: z.string().min(2, "Name must be at least 2 characters").max(100),
+    email: z.string().email("Invalid email").max(150),
     service: z.string().max(100),
-    message: z.string().min(10).max(3000),
+    message: z.string().min(5, "Message must be at least 5 characters").max(3000),
     botcheck: z.string().max(100).optional() // Honeypot
 });
 
@@ -38,7 +38,9 @@ export async function POST(req: Request) {
         // Strict Validation & Sanitization
         const result = leadSchema.safeParse(body);
         if (!result.success) {
-            return NextResponse.json({ error: "Invalid data format or length. Please check your inputs.", details: result.error.format() }, { status: 400 });
+            const fieldErrors = result.error.flatten().fieldErrors;
+            const errorMessages = Object.entries(fieldErrors).map(([field, msgs]) => `${field}: ${msgs?.join(', ')}`).join(' | ');
+            return NextResponse.json({ error: "Validation failed", details: errorMessages }, { status: 400 });
         }
 
         const { name, email, service, message, botcheck } = result.data;
