@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Feroz Arshad — Redesign Concepts</title>
+<meta name="description" content="Three hand-crafted redesign directions for ferozarshad.com — Broadcast, Operator/OS and Velocity. Pick a direction to walk the full site.">
+<meta name="robots" content="noindex">
+<meta property="og:title" content="Feroz Arshad — Redesign Concepts">
+<meta property="og:url" content="https://www.ferozarshad.com/design1/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&family=Caveat:wght@500;700&family=Space+Grotesk:wght@400;500;700&family=Architects+Daughter&family=Fjalla+One&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin:0; padding:0; }
+  body {
+    min-height: 100vh;
+    background: #ece7dc;
+    color: #18160f;
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1480px; margin: 0 auto; padding: 56px 48px 96px; }
+  header { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid #18160f; padding-bottom: 16px; margin-bottom: 48px; }
+  .mark { font-family: "Instrument Serif", serif; font-size: 28px; letter-spacing: -.01em; }
+  .mark em { font-style: italic; color:#9c3a1a; }
+  .meta { font-size: 11px; text-transform: uppercase; letter-spacing: .14em; opacity: .65; }
+  h1 { font-family: "Instrument Serif", serif; font-weight: 400; font-size: clamp(48px, 8vw, 96px); line-height: .95; letter-spacing: -.02em; margin: 0 0 24px; }
+  h1 em { color: #9c3a1a; }
+  .lede { max-width: 640px; font-family: "Instrument Serif", serif; font-size: 22px; line-height: 1.45; margin: 0 0 64px; color: #2a261d; }
+  .lede .hw { font-family: "Caveat", cursive; font-size: 28px; color: #1d3a8a; }
+
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; align-items: stretch; }
+  @media (max-width: 1100px) { .grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 720px) { .grid { grid-template-columns: 1fr; } }
+  .card.c { background: #0c0b08; color: #f3eee2; }
+  .card.c .tag { color: #ff9e7a; }
+  .card.c h2 { font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 40px; letter-spacing: -.03em; text-transform: uppercase; color: #f3eee2; }
+  .card.c h2 em { color: #ff4d1c; font-style: italic; }
+  .card.c .sub { font-family: "Architects Daughter", cursive; font-size: 18px; color: #ff9e7a; }
+  .card.c p { font-family: "Space Grotesk", sans-serif; font-size: 14.5px; line-height: 1.55; color: rgba(243,238,226,.78); }
+  .card.c .cta { border-top-color: rgba(243,238,226,.4); }
+  .card.c:hover { box-shadow: 6px 6px 0 #ff4d1c; }
+  .preview.c { background: #0c0b08; border-color: #0c0b08; }
+
+  .card.d { background: #08090a; color: #e8efea; border-color: #08090a; }
+  .card.d .tag { color: #3df0a5; }
+  .card.d h2 { font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 40px; letter-spacing: -.03em; color: #e8efea; }
+  .card.d h2 em { color: #3df0a5; font-style: italic; }
+  .card.d .sub { font-family: "Architects Daughter", cursive; font-size: 18px; color: #3df0a5; opacity: .9; }
+  .card.d p { font-family: "Space Grotesk", sans-serif; font-size: 14.5px; line-height: 1.55; color: rgba(232,239,234,.7); }
+  .card.d .cta { border-top-color: rgba(232,239,234,.25); }
+  .card.d:hover { box-shadow: 6px 6px 0 #3df0a5; }
+  .preview.d { background: #08090a; border-color: #08090a; }
+
+  .card.e { background: #0a0807; color: #f4ede0; border-color: #0a0807; }
+  .card.e .tag { color: #d6a45a; }
+  .card.e h2 { font-family: "Fjalla One", "Oswald", sans-serif; font-weight: 400; font-size: 40px; letter-spacing: .02em; color: #f4ede0; text-transform: uppercase; }
+  .card.e h2 em { color: #e7341f; font-style: italic; font-family: "Instrument Serif", serif; font-weight: 400; }
+  .card.e .sub { font-family: "Architects Daughter", cursive; font-size: 18px; color: #d6a45a; }
+  .card.e p { font-family: "Space Grotesk", sans-serif; font-size: 14.5px; line-height: 1.55; color: rgba(244,237,224,.78); }
+  .card.e .cta { border-top-color: rgba(244,237,224,.3); }
+  .card.e:hover { box-shadow: 6px 6px 0 #e7341f; }
+  .preview.e { background: #0a0807; border-color: #0a0807; }
+  .card .ribbon { position: absolute; top: 16px; right: -28px; transform: rotate(35deg); background: #ff4d1c; color: #fff; font-family: "JetBrains Mono", monospace; font-size: 9px; letter-spacing: .14em; padding: 4px 32px; }
+
+  .card { position: relative; border: 1px solid #18160f; padding: 32px 28px 30px; text-decoration: none; color: inherit; display: flex; flex-direction: column; min-height: 420px; transition: transform .2s ease, box-shadow .2s ease; overflow: hidden; }
+  .card.a { background: #f4ede0; }
+  .card.b { background: #dde6ec; }
+  .card:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 #18160f; }
+
+  .tag { font-family: "JetBrains Mono", monospace; font-size: 11px; text-transform: uppercase; letter-spacing: .18em; color: #6a5a3d; }
+  .card.b .tag { color: #2a4868; }
+  .card h2 { font-family: "Instrument Serif", serif; font-weight: 400; font-size: 44px; line-height: 1; margin: 18px 0 4px; letter-spacing: -.02em; }
+  .card.b h2 { font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 34px; letter-spacing: -.03em; text-transform: uppercase; }
+  .card .sub { font-family: "Caveat", cursive; font-size: 22px; color: #9c3a1a; margin-bottom: 18px; }
+  .card.b .sub { font-family: "Architects Daughter", cursive; font-size: 20px; color: #b13a2c; }
+  .card p { font-family: "Instrument Serif", serif; font-size: 19px; line-height: 1.45; margin: 0 0 28px; flex: 1; }
+  .card.b p { font-family: "Space Grotesk", sans-serif; font-size: 15px; line-height: 1.55; }
+  .card .cta { margin-top: auto; font-family: "JetBrains Mono", monospace; font-size: 12px; text-transform: uppercase; letter-spacing: .18em; display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top: 1px dashed #18160f; }
+  .card .arrow { font-size: 18px; }
+
+  .preview { aspect-ratio: 16/9; border: 1px solid #18160f; margin-bottom: 24px; position: relative; overflow: hidden; }
+  .preview.a { background: #f4ede0; }
+  .preview.b { background: #dde6ec; background-image:
+    linear-gradient(#cdd9e0 1px, transparent 1px),
+    linear-gradient(90deg, #cdd9e0 1px, transparent 1px);
+    background-size: 16px 16px;
+  }
+  .preview svg { width: 100%; height: 100%; display: block; }
+
+  .corner { position: absolute; width: 56px; height: 18px; background: rgba(220,200,150,.7); border: 1px solid rgba(120,100,60,.35); }
+  .corner.tl { top: -8px; left: 24px; transform: rotate(-4deg); }
+  .corner.tr { top: -8px; right: 24px; transform: rotate(3deg); }
+
+  footer { margin-top: 80px; padding-top: 24px; border-top: 1px solid #18160f; display: flex; justify-content: space-between; font-size: 11px; text-transform: uppercase; letter-spacing: .14em; opacity: .65; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="mark">Feroz Arshad <em>— redesign</em></div>
+      <div class="meta">Three directions · May 2026</div>
+    </header>
+
+    <h1>Three ways to <em>rebuild</em><br>the portfolio.</h1>
+    <p class="lede">All rooted in the same brief — multi-disciplinary engineer, designer &amp; strategist for serious clients — but each executed as a different <span class="hw">hand-crafted</span> document. Pick a direction to walk the full site.</p>
+
+    <div class="grid">
+      <a class="card e" href="/design2/">
+        <div class="ribbon">NEW · UNIQUE</div>
+        <div class="preview e">
+          <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="vig-e" cx="50%" cy="50%" r="60%">
+                <stop offset=".5" stop-color="transparent"/>
+                <stop offset="1" stop-color="rgba(0,0,0,.7)"/>
+              </radialGradient>
+            </defs>
+            <rect width="320" height="180" fill="#0a0807"/>
+            <!-- marquee frame -->
+            <rect x="14" y="14" width="292" height="152" fill="none" stroke="#e7341f" stroke-width="2"/>
+            <!-- corner accents -->
+            <path d="M14 26 L14 14 L26 14" fill="none" stroke="#e7341f" stroke-width="2"/>
+            <path d="M306 26 L306 14 L294 14" fill="none" stroke="#e7341f" stroke-width="2"/>
+            <!-- bulbs -->
+            <g fill="#f7e9b0">
+              <circle cx="32" cy="22" r="2.5"/><circle cx="58" cy="22" r="2.5"/><circle cx="84" cy="22" r="2.5"/><circle cx="110" cy="22" r="2.5"/><circle cx="136" cy="22" r="2.5"/><circle cx="162" cy="22" r="2.5"/><circle cx="188" cy="22" r="2.5"/><circle cx="214" cy="22" r="2.5"/><circle cx="240" cy="22" r="2.5"/><circle cx="266" cy="22" r="2.5"/><circle cx="292" cy="22" r="2.5"/>
+              <circle cx="32" cy="158" r="2.5"/><circle cx="58" cy="158" r="2.5"/><circle cx="84" cy="158" r="2.5"/><circle cx="110" cy="158" r="2.5"/><circle cx="136" cy="158" r="2.5"/><circle cx="162" cy="158" r="2.5"/><circle cx="188" cy="158" r="2.5"/><circle cx="214" cy="158" r="2.5"/><circle cx="240" cy="158" r="2.5"/><circle cx="266" cy="158" r="2.5"/><circle cx="292" cy="158" r="2.5"/>
+            </g>
+            <text x="160" y="50" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#d6a45a" letter-spacing="3">FEROZ STUDIO PRESENTS</text>
+            <text x="160" y="78" text-anchor="middle" font-family="Fjalla One" font-size="32" fill="#f4ede0" letter-spacing="1">BUILT</text>
+            <text x="160" y="112" text-anchor="middle" font-family="DM Serif Display" font-style="italic" font-size="30" fill="#e7341f">to ship.</text>
+            <text x="160" y="130" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#d6a45a" letter-spacing="3">SEASON 04 · RATED E</text>
+            <rect x="122" y="138" width="76" height="14" fill="#e7341f"/>
+            <text x="160" y="148" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#f4ede0" letter-spacing="3">★ 4.9 / 5</text>
+            <rect width="320" height="180" fill="url(#vig-e)"/>
+          </svg>
+        </div>
+        <div class="tag">Direction E · unique</div>
+        <h2>BROADCAST</h2>
+        <div class="sub">a personal media studio</div>
+        <p>A cinema marquee meets release schedule: Feroz reframed as a streaming studio, services as “now showing,” projects as feature films with ratings, runtime &amp; box office. Memorable, ownable, market-unique — nobody is doing this.</p>
+        <div class="cta"><span>Walk the site</span><span class="arrow">→</span></div>
+      </a>
+
+      <a class="card d" href="/design3/">
+        <div class="ribbon">NEW · 2026 TRENDS</div>
+        <div class="preview d">
+          <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="glow" cx="30%" cy="40%" r="60%">
+                <stop offset="0" stop-color="#3df0a5" stop-opacity=".35"/>
+                <stop offset="1" stop-color="#3df0a5" stop-opacity="0"/>
+              </radialGradient>
+            </defs>
+            <rect width="320" height="180" fill="#08090a"/>
+            <circle cx="80" cy="60" r="80" fill="url(#glow)"/>
+            <!-- bento mini -->
+            <g>
+              <rect x="14" y="16" width="120" height="60" rx="8" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.1)"/>
+              <rect x="140" y="16" width="80" height="60" rx="8" fill="rgba(61,240,165,.12)" stroke="rgba(61,240,165,.3)"/>
+              <rect x="226" y="16" width="80" height="60" rx="8" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.1)"/>
+              <rect x="14" y="82" width="60" height="82" rx="8" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.1)"/>
+              <rect x="80" y="82" width="140" height="82" rx="8" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.1)"/>
+              <rect x="226" y="82" width="80" height="82" rx="8" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.1)"/>
+            </g>
+            <text x="24" y="40" font-family="Space Grotesk" font-weight="700" font-size="14" fill="#e8efea" letter-spacing="-.5">Feroz Arshad</text>
+            <text x="24" y="54" font-family="JetBrains Mono" font-size="7" fill="#7d8a82" letter-spacing="1">OPERATOR · EST 2019</text>
+            <circle cx="30" cy="66" r="3" fill="#3df0a5"/>
+            <text x="38" y="69" font-family="JetBrains Mono" font-size="6" fill="#3df0a5" letter-spacing="1">AVAILABLE</text>
+            <text x="152" y="54" font-family="Space Grotesk" font-weight="700" font-size="20" fill="#3df0a5" letter-spacing="-1">+42%</text>
+            <text x="152" y="66" font-family="JetBrains Mono" font-size="6" fill="#3df0a5" letter-spacing="1">CVR LIFT</text>
+            <text x="236" y="54" font-family="Space Grotesk" font-weight="700" font-size="20" fill="#e8efea" letter-spacing="-1">60+</text>
+            <text x="236" y="66" font-family="JetBrains Mono" font-size="6" fill="#7d8a82" letter-spacing="1">SHIPPED</text>
+            <text x="90" y="110" font-family="Space Grotesk" font-weight="700" font-size="22" fill="#e8efea" letter-spacing="-1">SaaS • AI • commerce</text>
+            <text x="90" y="130" font-family="JetBrains Mono" font-size="7" fill="#7d8a82" letter-spacing="1">> _ four practices, one operator</text>
+            <g transform="translate(240 110) rotate(-25)" stroke="#3df0a5" stroke-width="1.5" fill="none" stroke-linecap="round">
+              <line x1="0" y1="0" x2="30" y2="-30"/>
+              <polyline points="22,-30 30,-30 30,-22"/>
+            </g>
+          </svg>
+        </div>
+        <div class="tag">Direction D · trend-forward</div>
+        <h2>OPERATOR / OS</h2>
+        <div class="sub">bento · glass · color-drench</div>
+        <p>Dark mode with glassmorphism, a bento grid, a single mint accent color-drenched across the whole site, organic blob gradients, variable-weight display type. Built around current 2026 trends: outcome-first cards, micro-interactions, a magnetic cursor.</p>
+        <div class="cta"><span>Walk the site</span><span class="arrow">→</span></div>
+      </a>
+
+      <a class="card c" href="/design4/">
+        <div class="preview c">
+          <svg viewBox="0 0 320 180" xmlns="http://www.w3.org/2000/svg">
+            <rect width="320" height="180" fill="#0c0b08"/>
+            <g stroke="rgba(243,238,226,.08)" stroke-width=".5">
+              <line x1="0" y1="45" x2="320" y2="45"/>
+              <line x1="0" y1="90" x2="320" y2="90"/>
+              <line x1="0" y1="135" x2="320" y2="135"/>
+            </g>
+            <text x="22" y="58" font-family="Space Grotesk" font-weight="700" font-size="42" fill="#f3eee2" letter-spacing="-2">FEROZ</text>
+            <text x="22" y="96" font-family="Space Grotesk" font-weight="700" font-size="30" fill="#ff4d1c" font-style="italic" letter-spacing="-1">in motion.</text>
+            <g transform="translate(186 40) rotate(-15)" stroke="#ff4d1c" stroke-width="2" fill="none" stroke-linecap="round">
+              <line x1="0" y1="0" x2="38" y2="-38"/>
+              <polyline points="28,-38 38,-38 38,-28"/>
+            </g>
+            <circle cx="272" cy="30" r="14" fill="#ff4d1c"/>
+            <text x="272" y="33" text-anchor="middle" font-family="JetBrains Mono" font-size="7" fill="#0c0b08" letter-spacing="1">+42%</text>
+            <text x="22" y="118" font-family="JetBrains Mono" font-size="7" fill="rgba(243,238,226,.55)" letter-spacing="2">SHIP THE THING · SHIP THE THING · SHIP THE</text>
+            <text x="22" y="150" font-family="JetBrains Mono" font-size="8" fill="rgba(243,238,226,.4)" letter-spacing="1">FIG. 01 — HERO BLOCK / FOLIO C</text>
+          </svg>
+        </div>
+        <div class="tag">Direction C · new</div>
+        <h2>VELOCITY</h2>
+        <div class="sub">kinetic editorial</div>
+        <p>Black paper, signal-orange, condensed display type blended with the logo glyph. Animated motion lines, marquees, scroll-drawn arrows. Loud, modern, image-forward — for buyers who scroll fast.</p>
+        <div class="cta"><span>Walk the site</span><span class="arrow">→</span></div>
+      </a>
+
+    </div>
+
+    <footer>
+      <div>Each direction is a single scrolling page · all pages interlinked</div>
+      <div>Static HTML · FAQ schema · minimal JS</div>
+    </footer>
+  </div>
+</body>
+</html>
