@@ -1,0 +1,37 @@
+# Files that exist locally but should NEVER ship to Vercel.
+# Vercel reads .gitignore too, but this is an extra belt-and-braces layer
+# in case something gets accidentally tracked.
+
+.env
+.env.*
+.n8n-secrets.txt
+*.pem
+*.key
+
+dashboard/
+.design-import/
+.claude/
+.cursor/
+
+fiverr-conversation-extractor-main/
+fiverr-exporter/
+fiverr.html
+upwork.html
+*_autopilot_extract_*.json
+n8n_*.json
+n8n_*.bat
+n8n_*.sh
+
+ai.md
+ai/
+tasks/
+check-leads.js
+maintenance.js
+copy-static.js
+.htaccess
+
+*.log
+*.tar
+*.tar.gz
+*.zip
+README.md.bak

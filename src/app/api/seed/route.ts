@@ -1,35 +1,63 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
+import crypto from "node:crypto";
 
 export const dynamic = "force-dynamic";
 
-export async function GET(req: Request) {
+/**
+ * Bootstraps the first admin user.
+ *
+ * Hardened:
+ *  - Requires a Bearer token matching SEED_SECRET (set in Vercel envs, rotated after first use)
+ *  - 410 Gone if SEED_SECRET is unset (so the route is dead by default in prod)
+ *  - Admin email + password supplied via env vars (SEED_ADMIN_EMAIL / SEED_ADMIN_PASSWORD)
+ *    instead of hard-coded strings, so this file contains no plaintext credentials
+ *  - Refuses to re-create an existing admin
+ *  - Constant-time token compare to avoid timing leaks
+ */
+export async function POST(req: Request) {
+    const secret = process.env.SEED_SECRET;
+    if (!secret || secret.length < 32) {
+        return NextResponse.json({ error: "Seed disabled" }, { status: 410 });
+    }
+
+    const auth = req.headers.get("authorization") ?? "";
+    const provided = auth.startsWith("Bearer ") ? auth.slice(7) : "";
+    if (
+        !provided ||
+        provided.length !== secret.length ||
+        !crypto.timingSafeEqual(Buffer.from(provided), Buffer.from(secret))
+    ) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const email = (process.env.SEED_ADMIN_EMAIL || "").trim().toLowerCase();
+    const password = process.env.SEED_ADMIN_PASSWORD || "";
+    if (!email || !password || password.length < 12) {
+        return NextResponse.json(
+            { error: "SEED_ADMIN_EMAIL / SEED_ADMIN_PASSWORD must be set (min 12 chars)" },
+            { status: 400 }
+        );
+    }
+
     try {
-        // SECURITY: Check if admin already exists to prevent an attacker from creating a new admin.
-        const existingAdmin = await prisma.user.findUnique({
-            where: { email: "contact@ferozarshad.com" }
-        });
-
+        const existingAdmin = await prisma.user.findUnique({ where: { email } });
         if (existingAdmin) {
-            return NextResponse.json({ error: "Admin already exists. Seeding disabled." }, { status: 403 });
+            return NextResponse.json({ error: "Admin already exists" }, { status: 409 });
         }
-
-        // Hash the secure password provided earlier
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash("secure-admin-pass-2024!", salt);
-
+        const hashedPassword = await bcrypt.hash(password, 12);
         const admin = await prisma.user.create({
-            data: {
-                name: "Feroz Arshad",
-                email: "contact@ferozarshad.com",
-                password: hashedPassword
-            }
+            data: { name: process.env.SEED_ADMIN_NAME ?? "Feroz Arshad", email, password: hashedPassword },
         });
-
-        return NextResponse.json({ message: "Admin seeded successfully. You can now login.", email: admin.email });
+        return NextResponse.json({ ok: true, email: admin.email });
     } catch (error) {
-        console.error("Seed error", error);
+        console.error("[seed] failure", error);
         return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
     }
+}
+
+// GET disabled: seeding is a write op and shouldn't be GET-able.
+export function GET() {
+    return NextResponse.json({ error: "Method not allowed" }, { status: 405 });
 }

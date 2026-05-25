@@ -1,7 +1,22 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# ─────────────────────────────────────────────────────────────────────────────
+#  Feroz Arshad — main site
+#  Anything that has secrets, local-only state, IDE chrome, or large generated
+#  data must be blocked here. If you're unsure: gitignore it.
+# ─────────────────────────────────────────────────────────────────────────────
 
-# dependencies
-/node_modules
+# ── Secrets / env ──
+.env
+.env.*
+!.env.example
+.n8n-secrets.txt
+*.pem
+*.key
+*.p12
+*-secrets.*
+credentials.json
+
+# ── Dependencies ──
+node_modules/
 /.pnp
 .pnp.*
 .yarn/*
@@ -10,34 +25,65 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
-/coverage
-
-# next.js
+# ── Build output ──
 /.next/
 /out/
-
-# production
 /build
+/dist
+/coverage
+*.tsbuildinfo
+next-env.d.ts
 
-# misc
+# ── Generated Prisma client ──
+/src/generated/prisma
+/prisma/migrations/dev.db
+*.sqlite
+*.sqlite-journal
+
+# ── Editor / IDE chrome ──
 .DS_Store
-*.pem
+Thumbs.db
+.cursor/
+.cursorignore
+.idea/
+.vscode/
+*.swp
+*~
 
-# debug
+# ── Vercel ──
+.vercel
+
+# ── Debug logs ──
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# ── LOCAL-ONLY: scrapers, data dumps, working notes ──
+# These exist on this machine for the operator's personal workflow.
+# They are NOT part of the published site and must NEVER be committed.
+dashboard/
+.design-import/
+.claude/
+fiverr-conversation-extractor-main/
+fiverr-exporter/
+fiverr.html
+upwork.html
+*_autopilot_extract_*.json
+n8n_*.json
+n8n_*.bat
+n8n_*.sh
+ai.md
+ai/
+tasks/
+check-leads.js
+maintenance.js
+copy-static.js
+.htaccess
 
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
-
-/src/generated/prisma
+# ── OS / archives ──
+*.log
+*.tar
+*.tar.gz
+*.zip
+*.7z

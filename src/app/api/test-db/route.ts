@@ -1,42 +1,38 @@
 import { NextResponse } from "next/server";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/lib/prisma";
+import crypto from "node:crypto";
 
 export const dynamic = "force-dynamic";
 
-export async function GET() {
+/**
+ * Diagnostic endpoint — gated by SEED_SECRET bearer token.
+ *
+ * Hardened:
+ *  - Returns 410 Gone if SEED_SECRET is unset (the default safe state)
+ *  - Reveals no DB URL, host, or stack trace; only ok/latency
+ */
+export async function GET(req: Request) {
+    const secret = process.env.SEED_SECRET;
+    if (!secret || secret.length < 32) {
+        return NextResponse.json({ error: "Disabled" }, { status: 410 });
+    }
+    const auth = req.headers.get("authorization") ?? "";
+    const provided = auth.startsWith("Bearer ") ? auth.slice(7) : "";
+    if (
+        !provided ||
+        provided.length !== secret.length ||
+        !crypto.timingSafeEqual(Buffer.from(provided), Buffer.from(secret))
+    ) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const start = Date.now();
     try {
-        const urlProperty = process.env.DATABASE_URL || "NOT_SET";
-        const maskedUrl = urlProperty.includes("@")
-            ? urlProperty.replace(/:[^:@]+@/, ":***@")
-            : urlProperty;
-
-        const prismaLocal = new PrismaClient({
-            datasources: { db: { url: urlProperty } },
-            log: ['query', 'info', 'warn', 'error'],
-        });
-
-        const start = Date.now();
-        // Fire a basic query to force the connection pool to open
-        await prismaLocal.$queryRaw`SELECT 1`;
-        const end = Date.now();
-
-        await prismaLocal.$disconnect();
-
-        return NextResponse.json({
-            success: true,
-            status: "Connected successfully to MariaDB!",
-            database_url_configured: maskedUrl,
-            connection_time_ms: end - start
-        }, { status: 200 });
-
-    } catch (error: any) {
-        return NextResponse.json({
-            success: false,
-            error_message: error.message,
-            error_name: error.name,
-            error_code: error.code,
-            database_url_configured: process.env.DATABASE_URL ? "SET_BUT_MASKED" : "NOT_SET",
-            stack: error.stack
-        }, { status: 500 });
+        await prisma.$queryRaw`SELECT 1`;
+        return NextResponse.json({ ok: true, latencyMs: Date.now() - start });
+    } catch (error) {
+        console.error("[test-db]", error);
+        // Do not echo internals; return generic failure
+        return NextResponse.json({ ok: false }, { status: 500 });
     }
 }

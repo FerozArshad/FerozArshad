@@ -24,45 +24,42 @@ const spaceGrotesk = Space_Grotesk({
 export const metadata: Metadata = {
   metadataBase: new URL("https://ferozarshad.com"),
   title: {
-    default: "Feroz Arshad | Enterprise AI Automation & High-Conversion Web Architecture",
-    template: "%s | Feroz Arshad",
+    default: "Feroz Arshad — Solo Engineer, Designer & Strategist for Founders",
+    template: "%s · Feroz Arshad",
   },
-  description: "Expert Full-Stack Developer specializing in autonomous AI workflows (n8n), Next.js scalable SaaS architecture, and high-conversion E-commerce development. Driving $1M+ in client revenue.",
+  description:
+    "A one-person practice that ships SaaS, AI automation and high-conversion commerce. Weekly Friday demos, outcome pricing, NDA + full IP transfer on every brief.",
+  applicationName: "Feroz Arshad",
   keywords: [
-    "AI Automation", "n8n workflows", "Next.js developer", "Python FastAPI",
-    "E-Commerce development", "SaaS architecture", "Feroz Arshad",
-    "full-stack developer", "headless commerce", "OpenAI integration",
-    "web scraping", "React developer", "Node.js developer",
+    "solo engineer", "independent developer", "fractional CTO",
+    "AI automation", "n8n consultant", "Next.js developer",
+    "Python FastAPI", "headless commerce", "Shopify Hydrogen",
+    "SaaS architecture", "high-conversion web design",
+    "Feroz Arshad", "Karachi developer", "outcome-priced engagement",
+    "OpenAI integration", "web scraping", "React engineer",
   ],
   authors: [{ name: "Feroz Arshad", url: "https://ferozarshad.com" }],
   creator: "Feroz Arshad",
   publisher: "Feroz Arshad",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
+  category: "technology",
+  formatDetection: { email: false, address: false, telephone: false },
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://ferozarshad.com",
     siteName: "Feroz Arshad",
-    title: "Feroz Arshad | Enterprise AI Automation & High-Conversion Web Architecture",
-    description: "Expert Full-Stack Developer specializing in autonomous AI workflows, Next.js SaaS, and high-conversion E-commerce. Driving $1M+ in client revenue.",
-    images: [
-      {
-        url: "/images/logo-black.png",
-        width: 1200,
-        height: 630,
-        alt: "Feroz Arshad — Digital Architect",
-      },
-    ],
+    title: "Hire Feroz Arshad — Solo Engineer, Designer & Strategist",
+    description:
+      "Senior engineering, design & strategy in one head. Weekly Friday demos, outcome pricing, full IP transfer.",
+    images: [{ url: "/logo-black.png", width: 1200, height: 630, alt: "Feroz Arshad" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Feroz Arshad | Enterprise AI Automation & Web Architecture",
-    description: "Expert Full-Stack Developer specializing in autonomous AI workflows, Next.js SaaS, and E-commerce.",
-    images: ["/images/logo-black.png"],
+    creator: "@ferozarshad",
+    title: "Hire Feroz Arshad — Solo Engineer, Designer & Strategist",
+    description:
+      "One operator, no agency, no handoffs. Weekly Friday demos in your inbox.",
+    images: ["/logo-black.png"],
   },
   robots: {
     index: true,

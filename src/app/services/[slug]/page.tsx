@@ -1,11 +1,33 @@
+import type { Metadata } from "next";
 import { Navbar } from "@/components/Navbar";
 import { servicesData } from "@/data/servicesData";
 import { notFound } from "next/navigation";
+import { BreadcrumbSchema } from "@/components/StructuredData";
 
 export const dynamic = "force-static";
 
-export default function SingleServicePage({ params }: { params: { slug: string } }) {
-    const service = servicesData.find((s) => s.slug === params.slug);
+export async function generateMetadata(
+    { params }: { params: Promise<{ slug: string }> }
+): Promise<Metadata> {
+    const { slug } = await params;
+    const service = servicesData.find((s) => s.slug === slug);
+    if (!service) return { title: "Service" };
+    return {
+        title: service.title,
+        description: service.fullDescription.slice(0, 160),
+        alternates: { canonical: `https://ferozarshad.com/services/${service.slug}` },
+        openGraph: {
+            title: service.title,
+            description: service.shortDescription,
+            url: `https://ferozarshad.com/services/${service.slug}`,
+            type: "article",
+        },
+    };
+}
+
+export default async function SingleServicePage({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
+    const service = servicesData.find((s) => s.slug === slug);
 
     if (!service) {
         notFound();
@@ -15,6 +37,13 @@ export default function SingleServicePage({ params }: { params: { slug: string }
 
     return (
         <>
+            <BreadcrumbSchema
+                items={[
+                    { name: "Home", url: "https://ferozarshad.com" },
+                    { name: "Services", url: "https://ferozarshad.com/services" },
+                    { name: service.title, url: `https://ferozarshad.com/services/${service.slug}` },
+                ]}
+            />
             <Navbar />
             <div className="max-w-4xl mx-auto px-4 py-20">
                 <div className="mb-12">

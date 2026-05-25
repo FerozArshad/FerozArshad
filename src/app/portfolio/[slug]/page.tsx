@@ -1,13 +1,39 @@
+import type { Metadata } from "next";
 import { Navbar } from "@/components/Navbar";
 import { portfolioData } from "@/data/portfolioData";
 import { notFound } from "next/navigation";
 import { IconArrowLeft } from "@tabler/icons-react";
 import Link from "next/link";
+import { BreadcrumbSchema } from "@/components/StructuredData";
 
 export const dynamic = "force-static";
 
-export default function CaseStudyPage({ params }: { params: { slug: string } }) {
-    const study = portfolioData.find((p) => p.slug === params.slug);
+export async function generateStaticParams() {
+    return portfolioData.map((p) => ({ slug: p.slug }));
+}
+
+export async function generateMetadata(
+    { params }: { params: Promise<{ slug: string }> }
+): Promise<Metadata> {
+    const { slug } = await params;
+    const study = portfolioData.find((p) => p.slug === slug);
+    if (!study) return { title: "Case Study" };
+    return {
+        title: study.title,
+        description: study.outcome.slice(0, 160),
+        alternates: { canonical: `https://ferozarshad.com/portfolio/${study.slug}` },
+        openGraph: {
+            title: study.title,
+            description: study.outcome.slice(0, 200),
+            url: `https://ferozarshad.com/portfolio/${study.slug}`,
+            type: "article",
+        },
+    };
+}
+
+export default async function CaseStudyPage({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
+    const study = portfolioData.find((p) => p.slug === slug);
 
     if (!study) {
         notFound();
@@ -15,6 +41,13 @@ export default function CaseStudyPage({ params }: { params: { slug: string } }) 
 
     return (
         <>
+            <BreadcrumbSchema
+                items={[
+                    { name: "Home", url: "https://ferozarshad.com" },
+                    { name: "Portfolio", url: "https://ferozarshad.com/portfolio" },
+                    { name: study.title, url: `https://ferozarshad.com/portfolio/${study.slug}` },
+                ]}
+            />
             <Navbar />
             <div className="max-w-7xl mx-auto px-4 py-12">
                 <Link href="/portfolio" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition mb-12">
@@ -96,9 +129,3 @@ export default function CaseStudyPage({ params }: { params: { slug: string } }) 
     );
 }
 
-// Generate static params for 100% PageSpeed
-export async function generateStaticParams() {
-    return portfolioData.map((study) => ({
-        slug: study.slug,
-    }));
-}
