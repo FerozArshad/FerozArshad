@@ -14,6 +14,9 @@
 *.p12
 *-secrets.*
 credentials.json
+.mcp-credentials/
+oauth-client*.json
+client_secret*.json
 
 # ── Dependencies ──
 node_modules/
@@ -87,3 +90,6 @@ copy-static.js
 *.tar.gz
 *.zip
 *.7z
+
+.vercel
+.env*

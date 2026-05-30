@@ -5,11 +5,11 @@ export const metadata: Metadata = {
   title: "Contact — Send a Brief",
   description:
     "Reply within 1 business day. NDA on first call. Scoped proposal in your inbox inside 48 hours. info@ferozarshad.com.",
-  alternates: { canonical: "https://ferozarshad.com/contact" },
+  alternates: { canonical: "/contact" },
   openGraph: {
     title: "Send Feroz a brief",
     description: "Reply within 1 business day. Scoped proposal inside 48 hours.",
-    url: "https://ferozarshad.com/contact",
+    url: "/contact",
     type: "website",
   },
 };
@@ -19,8 +19,8 @@ export default function ContactLayout({ children }: { children: React.ReactNode 
     <>
       <BreadcrumbSchema
         items={[
-          { name: "Home", url: "https://ferozarshad.com" },
-          { name: "Contact", url: "https://ferozarshad.com/contact" },
+          { name: "Home", url: "/" },
+          { name: "Contact", url: "/contact" },
         ]}
       />
       {children}

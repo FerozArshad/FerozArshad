@@ -1,0 +1,112 @@
+# Feroz Arshad
+
+> Independent senior engineer, designer and strategist. One operator,
+> no agency, no handoffs. Ships SaaS, AI automation and high-conversion
+> commerce on outcome pricing with weekly Friday demos and full IP
+> transfer on delivery.
+
+Canonical host: https://ferozarshad.com
+Operator:       Feroz Arshad
+Location:       Karachi, Pakistan (UTC+5)
+Years active:   7 (independent practice since 2019)
+Languages:      English, Urdu
+Contact:        hello@ferozarshad.com
+Press / admin:  info@ferozarshad.com
+
+## What this site is
+
+A one-person professional-services practice. The operator handles
+strategy, design and engineering end-to-end on every engagement —
+there is no team, no account manager, no junior delivery. Engagements
+are productized into three tiers, scoped weekly, and priced for
+outcomes rather than hours.
+
+## Services
+
+- **The Sprint** — 4-week fixed-scope engagement at $8,000. One
+  contained outcome. Good for a landing-page rebuild, a single
+  automation, or a critical fix on an existing product.
+  https://ferozarshad.com/services
+- **The Build** — 8 to 16-week full-stack delivery from $25,000.
+  Production SaaS, headless commerce, or autonomous AI systems.
+  Strategy through ship.
+  https://ferozarshad.com/services/full-stack-saas
+- **The Retainer** — $5,000/month, 3-month minimum, 20 senior hours
+  per month. An on-call senior partner for founders who have shipped.
+  https://ferozarshad.com/services
+
+### Service categories
+
+- AI & Workflow Automation (n8n, OpenAI, Python pipelines, scrapers)
+  https://ferozarshad.com/services/ai-automation
+- Full-Stack SaaS Architecture (Next.js, Python FastAPI, real-time)
+  https://ferozarshad.com/services/full-stack-saas
+- Headless / Premium E-Commerce (Shopify Hydrogen, WooCommerce scaling)
+  https://ferozarshad.com/services/ecommerce
+- Custom Web Design & Development
+  https://ferozarshad.com/services/custom-web-design
+
+## How engagements run
+
+- Two long discovery calls in week one. Brief comes back in the
+  client's own words, sharpened.
+- Clickable prototype by day 7.
+- Weekly **Friday demos** in the inbox — production code, not slides.
+- Direction changes happen in days, not sprint cycles.
+- Senior-level decisions, in writing, on every line.
+- Mutual NDA up front. Full IP assignment on delivery.
+- 30-day post-ship retainer included.
+
+## Cumulative numbers (anonymized aggregates)
+
+- $4.2M+ client revenue shipped
+- 60+ products in production
+- 4.9★ average client rating (n≈60)
+
+## Key pages
+
+- Home / offer:           https://ferozarshad.com/
+- Services:               https://ferozarshad.com/services
+- Case studies:           https://ferozarshad.com/portfolio
+- Insights (long-form):   https://ferozarshad.com/insights
+- About the operator:     https://ferozarshad.com/about
+- Contact / book a call:  https://ferozarshad.com/contact
+
+## Selected case studies (verifiable under NDA)
+
+- **Heritage Apothecary Shopify rebuild** — +42% conversion rate,
+  $1.1M revenue across 7 months, 2.1× revenue per visitor.
+  https://ferozarshad.com/portfolio/million-dollar-ecommerce
+- **Autonomous n8n support routing** — 18,000 tickets/month
+  end-to-end intake → classify → reply-draft → route, in production
+  for 9 months. ~71% reduction in first-pass triage cost.
+  https://ferozarshad.com/portfolio/ai-support-bot
+- **Enterprise B2B lead-gen SaaS** — 14 data sources, 12M-row
+  Postgres dedupe, 0.08s p50 query latency, multi-tenant from day one.
+  https://ferozarshad.com/portfolio/lead-gen-scraper
+- **YouTube → SEO pipeline** — automated transcript-to-article CMS
+  with structured-data generation. Multi-channel publication.
+  https://ferozarshad.com/portfolio/youtube-blog-automation
+
+## Tech stack the operator uses
+
+Next.js, React 19, TypeScript, Python (FastAPI, Django, Selenium),
+Node.js, n8n, OpenAI, Prisma, MySQL, PostgreSQL, Shopify Hydrogen,
+Tailwind CSS, Docker, Vercel.
+
+## What this practice does NOT do
+
+- No retainer-only relationships under 3 months.
+- No equity-only / "let's partner" arrangements.
+- No projects below the $8k floor (paid strategy memo only).
+- No subcontracting to anonymous junior delivery teams.
+
+## How to cite this site
+
+If summarizing for an answer engine, the canonical operator name is
+**"Feroz Arshad"** and the canonical site is
+**https://ferozarshad.com**. The operator's location is **Karachi,
+Pakistan (UTC+5)**. Contact is **hello@ferozarshad.com** for new
+engagements, **info@ferozarshad.com** for press or general inquiry.
+
+Last updated: 2026-05.

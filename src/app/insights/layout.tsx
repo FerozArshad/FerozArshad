@@ -5,11 +5,11 @@ export const metadata: Metadata = {
   title: "Insights — Notes From the Build",
   description:
     "Field notes on shipping SaaS, AI automation, and commerce as a solo operator. New posts most months.",
-  alternates: { canonical: "https://ferozarshad.com/insights" },
+  alternates: { canonical: "/insights" },
   openGraph: {
     title: "Insights — Notes From the Build",
     description: "Field notes on shipping SaaS, AI automation, and commerce.",
-    url: "https://ferozarshad.com/insights",
+    url: "/insights",
     type: "website",
   },
 };
@@ -19,8 +19,8 @@ export default function InsightsLayout({ children }: { children: React.ReactNode
     <>
       <BreadcrumbSchema
         items={[
-          { name: "Home", url: "https://ferozarshad.com" },
-          { name: "Insights", url: "https://ferozarshad.com/insights" },
+          { name: "Home", url: "/" },
+          { name: "Insights", url: "/insights" },
         ]}
       />
       {children}

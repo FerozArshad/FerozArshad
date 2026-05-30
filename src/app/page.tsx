@@ -1,35 +1,37 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import { SITE_URL, AUTHOR, DEFAULT_OG_IMAGE, ORG_ID, PERSON_ID, toAbsolute } from "@/lib/site-data";
 import "./home.css";
 
 export const metadata: Metadata = {
   title: "Hire Feroz Arshad — Solo Engineer, Designer & Strategist for Founders",
   description:
     "A one-person practice that ships SaaS, AI automation and high-conversion commerce — weekly Friday demos, outcome pricing, NDA + IP transfer on every brief. Book a free 30-minute intro call.",
-  alternates: { canonical: "https://ferozarshad.com" },
+  alternates: { canonical: "/" },
   openGraph: {
     title: "Hire Feroz Arshad — Solo Engineer, Designer & Strategist",
     description:
       "Senior engineering, design & strategy in one head. Weekly Friday demos, outcome pricing, full IP transfer.",
-    url: "https://ferozarshad.com",
+    url: "/",
     type: "website",
-    images: [{ url: "/logo-black.png", width: 1200, height: 630 }],
+    images: [{ url: DEFAULT_OG_IMAGE, width: 1200, height: 630 }],
   },
 };
 
 const proService = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
+  "@id": ORG_ID,
   name: "Feroz Arshad — Independent Practice",
   description:
     "Senior engineering, design & strategy in one head. Weekly demos, outcome pricing, full IP transfer on delivery.",
-  url: "https://ferozarshad.com/",
-  image: "https://ferozarshad.com/logo-black.png",
+  url: SITE_URL + "/",
+  image: toAbsolute(DEFAULT_OG_IMAGE),
   areaServed: "Worldwide",
   priceRange: "$$$",
-  founder: { "@type": "Person", name: "Feroz Arshad" },
-  address: { "@type": "PostalAddress", addressLocality: "Karachi", addressCountry: "PK" },
+  founder: { "@id": PERSON_ID, "@type": "Person", name: AUTHOR.name },
+  address: { "@type": "PostalAddress", addressLocality: AUTHOR.location.city, addressCountry: AUTHOR.location.country },
   makesOffer: [
     { "@type": "Offer", name: "The Sprint", price: "8000", priceCurrency: "USD", description: "4-week scoped engagement" },
     { "@type": "Offer", name: "The Build", price: "25000", priceCurrency: "USD", description: "8–16 week full-stack build" },

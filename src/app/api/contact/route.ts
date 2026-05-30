@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import nodemailer from 'nodemailer';
 import { z } from 'zod';
+import { isAllowedOrigin } from '@/lib/site-data';
 
 const leadSchema = z.object({
     name: z.string().min(2, "Name must be at least 2 characters").max(100),
@@ -51,6 +52,21 @@ if (typeof setInterval !== "undefined") {
 }
 
 export async function POST(req: Request) {
+    // ─── Origin allowlist (CSRF defense) ────────────────────────────────────
+    // Browser POSTs send an Origin header; same-site fetches from our front-end
+    // will match the canonical hosts. Anyone scripting from a third-party
+    // origin gets rejected here before any handler logic runs. Server-side
+    // requests (curl, n8n, etc.) typically omit Origin entirely; we still
+    // accept those because the rate limiter and honeypot guard them.
+    //
+    // Per Spenzio playbook: hardcode the prod hosts via lib/site-data —
+    // process.env.NEXT_PUBLIC_* drifts on Vercel build/run boundaries.
+    const origin = req.headers.get("origin");
+    if (origin && !isAllowedOrigin(origin)) {
+        console.warn(`[API/Contact] BLOCKED origin: ${origin}`);
+        return NextResponse.json({ error: "Forbidden origin" }, { status: 403 });
+    }
+
     // Rate limit check
     const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
     if (ip !== "unknown" && !rateLimit(ip)) {
@@ -91,6 +107,22 @@ export async function POST(req: Request) {
         } catch (dbError: any) {
             console.error("[API/Contact] DATABASE ERROR:", dbError.message || dbError);
             return NextResponse.json({ error: "Database storage failed", details: dbError.message || "Unknown DB error" }, { status: 500 });
+        }
+
+        // 1b. Gmail API alert (NON-FATAL — must not block the lead-save path).
+        //     Uses GOOGLE_CLIENT_ID/SECRET + GMAIL_REFRESH_TOKEN (gmail.send only).
+        //     If the env isn't fully set, notifyLead() returns { ok: false } and
+        //     the SMTP fallback below still runs.
+        try {
+            const { notifyLead } = await import('@/lib/gmail');
+            const r = await notifyLead({ name, email, service, message });
+            if (r.ok) {
+                console.log(`[API/Contact] Gmail-API alert sent for: ${email}`);
+            } else {
+                console.warn(`[API/Contact] Gmail-API alert skipped (${r.reason})`);
+            }
+        } catch (gmailErr: any) {
+            console.warn("[API/Contact] Gmail-API alert errored:", gmailErr?.message || gmailErr);
         }
 
         // 2. Transmit via Zoho SMTP (Background Process / Non-Blocking)

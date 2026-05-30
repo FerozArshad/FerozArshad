@@ -1,8 +1,7 @@
 import type { MetadataRoute } from "next";
 import { portfolioData } from "@/data/portfolioData";
 import { servicesData } from "@/data/servicesData";
-
-const BASE = "https://ferozarshad.com";
+import { SITE_URL as BASE } from "@/lib/site-data";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();

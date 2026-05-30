@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Navbar } from "@/components/Navbar";
 import { servicesData } from "@/data/servicesData";
 import { notFound } from "next/navigation";
-import { BreadcrumbSchema } from "@/components/StructuredData";
+import { BreadcrumbSchema, FaqSchema, ServiceSchema } from "@/components/StructuredData";
 
 export const dynamic = "force-static";
 
@@ -15,11 +15,11 @@ export async function generateMetadata(
     return {
         title: service.title,
         description: service.fullDescription.slice(0, 160),
-        alternates: { canonical: `https://ferozarshad.com/services/${service.slug}` },
+        alternates: { canonical: `/services/${service.slug}` },
         openGraph: {
             title: service.title,
             description: service.shortDescription,
-            url: `https://ferozarshad.com/services/${service.slug}`,
+            url: `/services/${service.slug}`,
             type: "article",
         },
     };
@@ -39,11 +39,20 @@ export default async function SingleServicePage({ params }: { params: Promise<{ 
         <>
             <BreadcrumbSchema
                 items={[
-                    { name: "Home", url: "https://ferozarshad.com" },
-                    { name: "Services", url: "https://ferozarshad.com/services" },
-                    { name: service.title, url: `https://ferozarshad.com/services/${service.slug}` },
+                    { name: "Home", url: "/" },
+                    { name: "Services", url: "/services" },
+                    { name: service.title, url: `/services/${service.slug}` },
                 ]}
             />
+            <ServiceSchema
+                name={service.title}
+                description={service.fullDescription}
+                serviceType={service.serviceType}
+                url={`/services/${service.slug}`}
+            />
+            {service.faqs && service.faqs.length > 0 && (
+                <FaqSchema items={service.faqs} />
+            )}
             <Navbar />
             <div className="max-w-4xl mx-auto px-4 py-20">
                 <div className="mb-12">

@@ -8,6 +8,7 @@ import { CustomCursor } from "@/components/CustomCursor";
 import { GoogleAnalytics, GoogleTagManager, GTMNoScript } from "@/components/GoogleAnalytics";
 import { PersonSchema, WebsiteSchema, ProfessionalServiceSchema } from "@/components/StructuredData";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { SITE_URL, SITE_NAME, SITE_DESCRIPTION, SITE_LOCALE, SITE_LANG, DEFAULT_OG_IMAGE } from "@/lib/site-data";
 
 const syne = Syne({
   variable: "--font-syne",
@@ -22,14 +23,13 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://ferozarshad.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Feroz Arshad — Solo Engineer, Designer & Strategist for Founders",
-    template: "%s · Feroz Arshad",
+    template: `%s · ${SITE_NAME}`,
   },
-  description:
-    "A one-person practice that ships SaaS, AI automation and high-conversion commerce. Weekly Friday demos, outcome pricing, NDA + full IP transfer on every brief.",
-  applicationName: "Feroz Arshad",
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
   keywords: [
     "solo engineer", "independent developer", "fractional CTO",
     "AI automation", "n8n consultant", "Next.js developer",
@@ -38,20 +38,20 @@ export const metadata: Metadata = {
     "Feroz Arshad", "Karachi developer", "outcome-priced engagement",
     "OpenAI integration", "web scraping", "React engineer",
   ],
-  authors: [{ name: "Feroz Arshad", url: "https://ferozarshad.com" }],
-  creator: "Feroz Arshad",
-  publisher: "Feroz Arshad",
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
   category: "technology",
   formatDetection: { email: false, address: false, telephone: false },
   openGraph: {
     type: "website",
-    locale: "en_US",
-    url: "https://ferozarshad.com",
-    siteName: "Feroz Arshad",
+    locale: SITE_LOCALE,
+    url: SITE_URL,
+    siteName: SITE_NAME,
     title: "Hire Feroz Arshad — Solo Engineer, Designer & Strategist",
     description:
       "Senior engineering, design & strategy in one head. Weekly Friday demos, outcome pricing, full IP transfer.",
-    images: [{ url: "/logo-black.png", width: 1200, height: 630, alt: "Feroz Arshad" }],
+    images: [{ url: DEFAULT_OG_IMAGE, width: 1200, height: 630, alt: SITE_NAME }],
   },
   twitter: {
     card: "summary_large_image",
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     title: "Hire Feroz Arshad — Solo Engineer, Designer & Strategist",
     description:
       "One operator, no agency, no handoffs. Weekly Friday demos in your inbox.",
-    images: ["/logo-black.png"],
+    images: [DEFAULT_OG_IMAGE],
   },
   robots: {
     index: true,
@@ -76,7 +76,11 @@ export const metadata: Metadata = {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "",
   },
   alternates: {
-    canonical: "https://ferozarshad.com",
+    canonical: "/",
+    languages: {
+      "en-US": SITE_URL,
+      "x-default": SITE_URL,
+    },
   },
 };
 
@@ -86,8 +90,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={SITE_LANG} suppressHydrationWarning>
       <head>
+        {/* Prefetch DNS for tracking origin — saves a handshake when the
+            lazy-loaded GA / GTM scripts kick in late in the page lifecycle. */}
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
         <PersonSchema />
         <WebsiteSchema />
         <ProfessionalServiceSchema />

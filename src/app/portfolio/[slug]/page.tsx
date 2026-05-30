@@ -21,11 +21,11 @@ export async function generateMetadata(
     return {
         title: study.title,
         description: study.outcome.slice(0, 160),
-        alternates: { canonical: `https://ferozarshad.com/portfolio/${study.slug}` },
+        alternates: { canonical: `/portfolio/${study.slug}` },
         openGraph: {
             title: study.title,
             description: study.outcome.slice(0, 200),
-            url: `https://ferozarshad.com/portfolio/${study.slug}`,
+            url: `/portfolio/${study.slug}`,
             type: "article",
         },
     };
@@ -43,9 +43,9 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
         <>
             <BreadcrumbSchema
                 items={[
-                    { name: "Home", url: "https://ferozarshad.com" },
-                    { name: "Portfolio", url: "https://ferozarshad.com/portfolio" },
-                    { name: study.title, url: `https://ferozarshad.com/portfolio/${study.slug}` },
+                    { name: "Home", url: "/" },
+                    { name: "Portfolio", url: "/portfolio" },
+                    { name: study.title, url: `/portfolio/${study.slug}` },
                 ]}
             />
             <Navbar />

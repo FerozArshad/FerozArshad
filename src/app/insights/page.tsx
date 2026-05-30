@@ -4,12 +4,17 @@ import { Footer } from "@/components/Footer";
 import Link from "next/link";
 import { IconBook2 } from "@tabler/icons-react";
 
-export const dynamic = "force-dynamic";
+// ISR — picks up newly published insights within an hour without a redeploy.
+// Server-action revalidatePath('/insights') from /admin will invalidate immediately.
+export const revalidate = 3600;
 
 export default async function InsightsPage() {
-    const articles = await prisma.insight.findMany({
-        orderBy: { createdAt: 'desc' }
-    });
+    const articles = await prisma.insight
+        .findMany({
+            where: { publishedAt: { not: null } },
+            orderBy: [{ publishedAt: "desc" }, { createdAt: "desc" }],
+        })
+        .catch(() => []);
 
     return (
         <>
