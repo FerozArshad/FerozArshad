@@ -47,14 +47,28 @@ model Service {
 }
 
 model Insight {
-  id          String   @id @default(cuid())
-  slug        String   @unique
+  id          String    @id @default(cuid())
+  slug        String    @unique
   title       String
   category    String
-  content     String   @db.Text
+  // Legacy single-body field; new editor writes structured `sections` instead.
+  // We keep this for backward compat with the 3 existing rows seeded before the
+  // CMS upgrade. Public render falls back to `content` when `sections` is null.
+  content     String    @db.Text
+  excerpt     String?   @db.VarChar(500)
+  // Multi-section editor payload — JSON array of { heading, body } objects.
+  // Per Spenzio playbook (`04_BLOG_CMS_ADMIN_PORTAL.md`): plain text body,
+  // rendered with whitespace-pre-line; do NOT use an HTML rich editor here.
+  sections    Json?
+  coverImage  String?   @db.VarChar(500) // Vercel Blob public URL
+  coverAlt    String?   @db.VarChar(255)
+  authorName  String?   @db.VarChar(100)
+  authorRole  String?   @db.VarChar(150)
+  readTime    String?   @db.VarChar(40)  // e.g. "7 min read"
+  tags        String?   @db.VarChar(500) // comma-separated
   publishedAt DateTime?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
 
 model Lead {

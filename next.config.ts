@@ -40,11 +40,18 @@ const SECURITY_HEADERS = [
 ];
 
 const nextConfig: NextConfig = {
-  images: { unoptimized: true },
+  images: {
+    // Off for the bulk of brand images (SVGs / pre-optimized PNGs). Insight covers
+    // come from Vercel Blob and benefit from the next/image pipeline.
+    unoptimized: true,
+    remotePatterns: [
+      { protocol: "https", hostname: "*.public.blob.vercel-storage.com" },
+    ],
+  },
   poweredByHeader: false,
   compress: true,
   reactStrictMode: true,
-  serverExternalPackages: ["@prisma/client", "bcryptjs", "nodemailer"],
+  serverExternalPackages: ["@prisma/client", "bcryptjs", "nodemailer", "googleapis"],
 
   async headers() {
     return [

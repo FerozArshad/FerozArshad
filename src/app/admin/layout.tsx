@@ -1,10 +1,11 @@
 "use client";
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { IconDashboard, IconBriefcase, IconArticle, IconSettings, IconLogout, IconTools, IconUsers } from '@tabler/icons-react';
+import { IconDashboard, IconBriefcase, IconArticle, IconSettings, IconLogout, IconTools, IconUsers, IconChartBar } from '@tabler/icons-react';
 
 const navItems = [
     { name: 'Dashboard', href: '/admin', icon: IconDashboard },
+    { name: 'Analytics', href: '/admin/analytics', icon: IconChartBar },
     { name: 'Portfolio Leads', href: '/admin/leads', icon: IconUsers },
     { name: 'Case Studies', href: '/admin/portfolios', icon: IconBriefcase },
     { name: 'Services', href: '/admin/services', icon: IconTools },
