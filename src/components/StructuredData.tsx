@@ -70,7 +70,7 @@ export const WebsiteSchema = () => {
         publisher: { "@id": ORG_ID },
         potentialAction: {
             "@type": "SearchAction",
-            target: `${SITE_URL}/portfolio?q={search_term_string}`,
+            target: `${SITE_URL}/insights?q={search_term_string}`,
             "query-input": "required name=search_term_string",
         },
     };

@@ -5,6 +5,11 @@ import { usePathname } from "next/navigation";
 export default function PageTransition({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
 
+    // The home page relies on position:fixed/sticky chrome (matrix background,
+    // custom cursor, floating WhatsApp). A transformed/will-change ancestor
+    // would turn those into containing-block prisoners, so skip the wrapper.
+    if (pathname === "/") return <>{children}</>;
+
     return (
         <AnimatePresence mode="wait">
             <motion.div

@@ -25,13 +25,11 @@ export const Navbar = () => {
                     </Link>
                 </MagneticWrapper>
                 <div className="hidden md:flex space-x-12 text-xs font-heading font-bold uppercase tracking-widest">
-                    <MagneticWrapper><Link href="/services" className="hover:italic transition-all">Services</Link></MagneticWrapper>
-                    <MagneticWrapper><Link href="/portfolio" className="hover:italic transition-all">Portfolio</Link></MagneticWrapper>
+                    <MagneticWrapper><Link href="/" className="hover:italic transition-all">Home</Link></MagneticWrapper>
                     <MagneticWrapper><Link href="/insights" className="hover:italic transition-all">Insights</Link></MagneticWrapper>
-                    <MagneticWrapper><Link href="/about" className="hover:italic transition-all">About</Link></MagneticWrapper>
                 </div>
                 <MagneticWrapper className="pointer-events-auto">
-                    <Link href="/contact" className="fixed top-6 right-6 md:static px-6 py-3 border border-border rounded-full text-xs font-heading font-bold uppercase tracking-widest hover:bg-foreground hover:text-background hover:scale-105 transition-all text-foreground bg-background/50 backdrop-blur-md md:bg-transparent md:backdrop-blur-none">
+                    <Link href="/#contact" className="fixed top-6 right-6 md:static px-6 py-3 border border-border rounded-full text-xs font-heading font-bold uppercase tracking-widest hover:bg-foreground hover:text-background hover:scale-105 transition-all text-foreground bg-background/50 backdrop-blur-md md:bg-transparent md:backdrop-blur-none">
                         Let's Talk
                     </Link>
                 </MagneticWrapper>

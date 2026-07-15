@@ -19,7 +19,6 @@ const DISALLOW = [
   "/admin",
   "/admin/*",
   "/api/*",
-  "/thank-you", // post-conversion-only page
 ];
 
 // Major web search + AI/answer-engine crawlers. All get Allow with shared disallow.

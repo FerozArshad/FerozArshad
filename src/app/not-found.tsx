@@ -22,7 +22,7 @@ export default function NotFound() {
                     Return Home
                 </Link>
                 <Link
-                    href="/contact"
+                    href="/#contact"
                     className="flex-1 sm:flex-none justify-center px-8 py-4 bg-foreground/5 hover:bg-foreground/10 text-foreground font-bold border border-border rounded-xl transition flex items-center gap-2 group"
                 >
                     <IconMail className="w-5 h-5 group-hover:translate-x-0.5 transition-transform" />

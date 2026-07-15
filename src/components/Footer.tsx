@@ -32,11 +32,9 @@ export const Footer = () => {
                     <div>
                         <h4 className="text-xs font-heading font-bold tracking-widest uppercase text-muted-foreground mb-8">Navigation</h4>
                         <ul className="space-y-4 font-heading text-sm uppercase tracking-widest font-bold">
-                            <li><Link href="/services" className="text-muted-foreground hover:text-foreground hover:italic transition-all">Services</Link></li>
-                            <li><Link href="/portfolio" className="text-muted-foreground hover:text-foreground hover:italic transition-all">Portfolio</Link></li>
+                            <li><Link href="/" className="text-muted-foreground hover:text-foreground hover:italic transition-all">Home</Link></li>
                             <li><Link href="/insights" className="text-muted-foreground hover:text-foreground hover:italic transition-all">Insights</Link></li>
-                            <li><Link href="/about" className="text-muted-foreground hover:text-foreground hover:italic transition-all">About</Link></li>
-                            <li><Link href="/contact" className="text-muted-foreground hover:text-foreground hover:italic transition-all">Contact</Link></li>
+                            <li><Link href="/#contact" className="text-muted-foreground hover:text-foreground hover:italic transition-all">Contact</Link></li>
                         </ul>
                     </div>
 
@@ -44,10 +42,10 @@ export const Footer = () => {
                     <div>
                         <h4 className="text-xs font-heading font-bold tracking-widest uppercase text-muted-foreground mb-8">Expertise</h4>
                         <ul className="space-y-4 font-heading text-sm uppercase tracking-widest font-bold">
-                            <li><Link href="/services/ai-automation" className="text-muted-foreground hover:text-foreground hover:italic transition-all">AI Validation & n8n</Link></li>
-                            <li><Link href="/services/full-stack-saas" className="text-muted-foreground hover:text-foreground hover:italic transition-all">SaaS Architecture</Link></li>
-                            <li><Link href="/services/ecommerce" className="text-muted-foreground hover:text-foreground hover:italic transition-all">Headless E-Commerce</Link></li>
-                            <li><Link href="/services/custom-web-design" className="text-muted-foreground hover:text-foreground hover:italic transition-all">Creative WebGL Design</Link></li>
+                            <li><Link href="/#services" className="text-muted-foreground hover:text-foreground hover:italic transition-all">AI Automation & n8n</Link></li>
+                            <li><Link href="/#services" className="text-muted-foreground hover:text-foreground hover:italic transition-all">Python Backend</Link></li>
+                            <li><Link href="/#services" className="text-muted-foreground hover:text-foreground hover:italic transition-all">WordPress & SEO</Link></li>
+                            <li><Link href="/#services" className="text-muted-foreground hover:text-foreground hover:italic transition-all">Web & Data Scraping</Link></li>
                         </ul>
                     </div>
                 </div>

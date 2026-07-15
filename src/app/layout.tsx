@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import { Syne, Space_Grotesk } from "next/font/google";
+import { Syne, Space_Grotesk, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import PageTransition from "@/components/PageTransition";
 import { ThemeProvider } from "@/components/theme-provider";
-import { ThemeSwitcher } from "@/components/ThemeSwitcher";
-import { CustomCursor } from "@/components/CustomCursor";
+import { ChromeGate } from "@/components/ChromeGate";
 import { GoogleAnalytics, GoogleTagManager, GTMNoScript } from "@/components/GoogleAnalytics";
 import { PersonSchema, WebsiteSchema, ProfessionalServiceSchema } from "@/components/StructuredData";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -20,6 +19,19 @@ const spaceGrotesk = Space_Grotesk({
   variable: "--font-grotesk",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
+});
+
+// Home (new design) typography — variable axis covers the 250-weight display.
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+  weight: "variable",
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+  weight: "variable",
 });
 
 export const metadata: Metadata = {
@@ -101,7 +113,7 @@ export default function RootLayout({
         <ProfessionalServiceSchema />
         <GoogleTagManager />
       </head>
-      <body className={`${spaceGrotesk.variable} ${syne.variable} font-sans antialiased bg-background text-foreground selection:bg-primary selection:text-white relative min-h-screen overflow-x-hidden transition-colors duration-300`}>
+      <body className={`${spaceGrotesk.variable} ${syne.variable} ${geistSans.variable} ${geistMono.variable} font-sans antialiased bg-background text-foreground selection:bg-primary selection:text-white relative min-h-screen overflow-x-hidden transition-colors duration-300`}>
         <GTMNoScript />
         <GoogleAnalytics />
 
@@ -109,14 +121,13 @@ export default function RootLayout({
           {/* Global Texture Noise (Hidden on mobile for pure performance) */}
           <div className="fixed inset-0 z-[9999] pointer-events-none opacity-[0.03] mix-blend-overlay bg-[url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E')] hidden md:block"></div>
 
-          <CustomCursor />
+          <ChromeGate />
 
           <main className="w-full relative z-10">
             <PageTransition>
               {children}
             </PageTransition>
           </main>
-          <ThemeSwitcher />
         </ThemeProvider>
         <SpeedInsights />
       </body>
