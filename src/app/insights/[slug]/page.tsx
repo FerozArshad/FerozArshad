@@ -76,7 +76,7 @@ export async function generateMetadata(
   { params }: { params: Promise<{ slug: string }> }
 ): Promise<Metadata> {
   const { slug } = await params;
-  const insight = await prisma.insight.findUnique({ where: { slug } });
+  const insight = await prisma.insight.findFirst({ where: { slug, publishedAt: { not: null } } });
   if (!insight) return { title: "Insight not found" };
 
   const sections = sectionsFromRow(insight);
@@ -112,7 +112,7 @@ export default async function InsightPost(
   { params }: { params: Promise<{ slug: string }> }
 ) {
   const { slug } = await params;
-  const insight = await prisma.insight.findUnique({ where: { slug } });
+  const insight = await prisma.insight.findFirst({ where: { slug, publishedAt: { not: null } } });
   if (!insight) notFound();
 
   const sections = sectionsFromRow(insight);
