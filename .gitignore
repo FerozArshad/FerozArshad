@@ -94,3 +94,5 @@ copy-static.js
 .vercel
 .env*
 .fullgit/
+
+.db-backups/

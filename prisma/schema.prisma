@@ -9,8 +9,8 @@ datasource db {
 }
 
 // Only the tables this site reads or writes. The ferozarshad_site database also
-// holds User, Service and Project (Project is written by the dashboard); they are
-// not modelled here. Never run `prisma db push` / `migrate` against this database.
+// holds Project (written by the dashboard), which is not modelled here.
+// Never run `prisma db push` / `migrate` against this database.
 
 model Insight {
   id          String    @id @default(cuid())
