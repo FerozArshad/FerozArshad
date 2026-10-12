@@ -6,7 +6,6 @@ import Image from "next/image";
 import { IconBook2 } from "@tabler/icons-react";
 
 // ISR — picks up newly published insights within an hour without a redeploy.
-// Server-action revalidatePath('/insights') from /admin invalidates immediately.
 export const revalidate = 3600;
 
 function plain(s: string): string {

@@ -5,10 +5,10 @@ import { SITE_URL } from "@/lib/site-data";
  * Robots policy — per Spenzio playbook (`02_SEO_TECHNICAL_AND_PERFORMANCE.md`):
  *
  * > "AI crawler robots rules MUST include the same disallow. A bare
- * >  User-agent: GPTBot / Allow: / overrides * and exposes /admin."
+ * >  User-agent: GPTBot / Allow: / overrides * and exposes private paths."
  *
  * Each explicit AI/answer-engine bot gets the SAME shared disallow so they
- * can't crawl /admin, /api, or /thank-you.
+ * can't crawl /api.
  *
  * We DO welcome AI bots (ChatGPT / Perplexity / Claude / Gemini etc.) —
  * blocking them removes us from answer-engine citations, which is pure
@@ -16,8 +16,6 @@ import { SITE_URL } from "@/lib/site-data";
  */
 
 const DISALLOW = [
-  "/admin",
-  "/admin/*",
   "/api/*",
 ];
 

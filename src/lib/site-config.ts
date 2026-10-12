@@ -2,7 +2,8 @@ import crypto from "node:crypto";
 
 /**
  * Runtime settings for ferozarshad.com, held in the dashboard
- * (dashboard.ferozarshad.com → Settings → Website) instead of Vercel env.
+ * (dashboard.ferozarshad.com → Settings → Website) instead of Vercel env:
+ * SMTP for lead alerts, plus the optional Gmail-API alert.
  *
  * Vercel only holds the bootstrap values: DATABASE_URL, SITE_CONFIG_URL and
  * SITE_CONFIG_KEY. Everything else is fetched from SITE_CONFIG_URL with a
@@ -34,13 +35,9 @@ export type SettingKey =
     | "SMTP_TO"
     | "GOOGLE_CLIENT_ID"
     | "GOOGLE_CLIENT_SECRET"
-    | "GOOGLE_REFRESH_TOKEN"
     | "GMAIL_USER"
     | "GMAIL_REFRESH_TOKEN"
-    | "LEAD_NOTIFY_TO"
-    | "GA_PROPERTY_ID"
-    | "GSC_SITE_URL"
-    | "JWT_SECRET";
+    | "LEAD_NOTIFY_TO";
 
 type Settings = Partial<Record<SettingKey, string>>;
 

@@ -1,6 +1,6 @@
 /* ─────────────────────────────────────────────────────────────────────────────
    New portfolio home design — tokens + primitives, scoped under .fz so they
-   don't leak into insights/admin (which use the repo's Tailwind theme).
+   don't leak into insights (which uses the repo's Tailwind theme).
    Theme follows next-themes' class attribute: dark by default, html.light
    switches the palette.
    ──────────────────────────────────────────────────────────────────────────── */

@@ -51,7 +51,7 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   compress: true,
   reactStrictMode: true,
-  serverExternalPackages: ["@prisma/client", "bcryptjs", "nodemailer", "googleapis"],
+  serverExternalPackages: ["@prisma/client", "nodemailer", "googleapis"],
 
   async headers() {
     return [
@@ -60,17 +60,7 @@ const nextConfig: NextConfig = {
         headers: SECURITY_HEADERS,
       },
       {
-        // Admin area is private — never index, never frame
-        source: "/admin/:path*",
-        headers: [
-          ...SECURITY_HEADERS,
-          { key: "X-Robots-Tag", value: "noindex, nofollow, nocache, noarchive" },
-          { key: "X-Frame-Options", value: "DENY" },
-          { key: "Cache-Control", value: "no-store, no-cache, must-revalidate" },
-        ],
-      },
-      {
-        // Same for the lead-form API
+        // Lead-form API: never index, never cache
         source: "/api/:path*",
         headers: [
           ...SECURITY_HEADERS,
