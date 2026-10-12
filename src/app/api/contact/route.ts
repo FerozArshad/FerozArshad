@@ -127,13 +127,15 @@ export async function POST(req: Request) {
 
         // 2. Transmit via Zoho SMTP (Background Process / Non-Blocking)
         try {
+            const { getSettings } = await import('@/lib/site-config');
+            const smtp = await getSettings(['SMTP_HOST', 'SMTP_PORT', 'SMTP_SECURE', 'SMTP_USER', 'SMTP_PASS', 'SMTP_TO']);
             const transporter = nodemailer.createTransport({
-                host: process.env.SMTP_HOST || 'smtp.zoho.com',
-                port: parseInt(process.env.SMTP_PORT || '465'),
-                secure: process.env.SMTP_SECURE === 'true', // true for port 465
+                host: smtp.SMTP_HOST || 'smtp.zoho.com',
+                port: parseInt(smtp.SMTP_PORT || '465'),
+                secure: smtp.SMTP_SECURE === 'true', // true for port 465
                 auth: {
-                    user: process.env.SMTP_USER,
-                    pass: process.env.SMTP_PASS,
+                    user: smtp.SMTP_USER,
+                    pass: smtp.SMTP_PASS,
                 },
             });
 
@@ -144,8 +146,8 @@ export async function POST(req: Request) {
             const eMessage = escapeHtml(message).replace(/\n/g, '<br>');
 
             transporter.sendMail({
-                from: `"ferozarshad.com" <${process.env.SMTP_USER}>`,
-                to: process.env.SMTP_TO || 'info@ferozarshad.com',
+                from: `"ferozarshad.com" <${smtp.SMTP_USER}>`,
+                to: smtp.SMTP_TO || 'info@ferozarshad.com',
                 replyTo: email,
                 subject: `New Lead: ${service.replace(/[\r\n]/g, ' ').slice(0, 80)} inquiry from ${name.replace(/[\r\n]/g, ' ').slice(0, 60)}`,
                 html: `

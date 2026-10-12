@@ -1,20 +1,25 @@
 import { SignJWT, jwtVerify } from "jose";
 import { cookies } from "next/headers";
+import { getSetting } from "@/lib/site-config";
 
-const secretKey = process.env.JWT_SECRET || "super-secure-admin-secret-key-12345";
-const key = new TextEncoder().encode(secretKey);
+// No fallback: without a real secret, sessions can't be signed or verified.
+async function signingKey(): Promise<Uint8Array> {
+    const secret = await getSetting("JWT_SECRET");
+    if (secret.length < 32) throw new Error("JWT_SECRET is not set (min 32 chars)");
+    return new TextEncoder().encode(secret);
+}
 
 export async function encrypt(payload: any) {
     return await new SignJWT(payload)
         .setProtectedHeader({ alg: "HS256" })
         .setIssuedAt()
         .setExpirationTime("24h")
-        .sign(key);
+        .sign(await signingKey());
 }
 
 export async function decrypt(input: string): Promise<any> {
     try {
-        const { payload } = await jwtVerify(input, key, {
+        const { payload } = await jwtVerify(input, await signingKey(), {
             algorithms: ["HS256"],
         });
         return payload;

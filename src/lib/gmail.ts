@@ -19,6 +19,7 @@
  */
 
 import { google } from "googleapis";
+import { getSettings } from "./site-config";
 
 type NotifyInput = {
   name: string;
@@ -29,11 +30,7 @@ type NotifyInput = {
 
 type NotifyResult = { ok: true } | { ok: false; reason: string };
 
-const GMAIL_USER = process.env.GMAIL_USER || "";
-const LEAD_NOTIFY_TO = process.env.LEAD_NOTIFY_TO || GMAIL_USER;
-const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || "";
-const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || "";
-const GMAIL_REFRESH_TOKEN = process.env.GMAIL_REFRESH_TOKEN || "";
+type Mailbox = { from: string; to: string };
 
 /**
  * Strip every CR/LF from a single-line header value. Anything else stays.
@@ -61,9 +58,9 @@ function toBase64Url(input: string): string {
     .replace(/=+$/g, "");
 }
 
-function buildMessage(input: NotifyInput): string {
-  const from = `"ferozarshad.com" <${safeHeader(GMAIL_USER)}>`;
-  const to = safeHeader(LEAD_NOTIFY_TO);
+function buildMessage(input: NotifyInput, mailbox: Mailbox): string {
+  const from = `"ferozarshad.com" <${safeHeader(mailbox.from)}>`;
+  const to = safeHeader(mailbox.to);
   const replyTo = safeHeader(input.email);
   const subject = safeHeader(`New lead — ${input.service} (${input.name})`);
 
@@ -126,19 +123,27 @@ function buildMessage(input: NotifyInput): string {
  * the caller can log without breaking the lead-save path.
  */
 export async function notifyLead(input: NotifyInput): Promise<NotifyResult> {
-  if (!GOOGLE_CLIENT_ID || !GOOGLE_CLIENT_SECRET || !GMAIL_REFRESH_TOKEN) {
+  const s = await getSettings([
+    "GMAIL_USER",
+    "LEAD_NOTIFY_TO",
+    "GOOGLE_CLIENT_ID",
+    "GOOGLE_CLIENT_SECRET",
+    "GMAIL_REFRESH_TOKEN",
+  ]);
+  if (!s.GOOGLE_CLIENT_ID || !s.GOOGLE_CLIENT_SECRET || !s.GMAIL_REFRESH_TOKEN) {
     return { ok: false, reason: "missing-env" };
   }
-  if (!GMAIL_USER || !LEAD_NOTIFY_TO) {
+  const mailbox = { from: s.GMAIL_USER, to: s.LEAD_NOTIFY_TO || s.GMAIL_USER };
+  if (!mailbox.from || !mailbox.to) {
     return { ok: false, reason: "missing-mailbox-config" };
   }
 
   try {
-    const oauth2 = new google.auth.OAuth2(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET);
-    oauth2.setCredentials({ refresh_token: GMAIL_REFRESH_TOKEN });
+    const oauth2 = new google.auth.OAuth2(s.GOOGLE_CLIENT_ID, s.GOOGLE_CLIENT_SECRET);
+    oauth2.setCredentials({ refresh_token: s.GMAIL_REFRESH_TOKEN });
 
     const gmail = google.gmail({ version: "v1", auth: oauth2 });
-    const raw = toBase64Url(buildMessage(input));
+    const raw = toBase64Url(buildMessage(input, mailbox));
 
     await gmail.users.messages.send({
       userId: "me",

@@ -16,22 +16,30 @@
  */
 
 import { google } from "googleapis";
+import { getSettings } from "./site-config";
 
-const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID || "";
-const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET || "";
-const GOOGLE_REFRESH_TOKEN = process.env.GOOGLE_REFRESH_TOKEN || "";
-const GA_PROPERTY_ID = process.env.GA_PROPERTY_ID || ""; // e.g. "properties/404268178"
-const GSC_SITE_URL = process.env.GSC_SITE_URL || ""; // e.g. "sc-domain:ferozarshad.com"
+// GA_PROPERTY_ID e.g. "properties/404268178"; GSC_SITE_URL e.g. "sc-domain:ferozarshad.com"
+function loadConfig() {
+  return getSettings([
+    "GOOGLE_CLIENT_ID",
+    "GOOGLE_CLIENT_SECRET",
+    "GOOGLE_REFRESH_TOKEN",
+    "GA_PROPERTY_ID",
+    "GSC_SITE_URL",
+  ]);
+}
 
-function envOk(): boolean {
+type Config = Awaited<ReturnType<typeof loadConfig>>;
+
+function envOk(c: Config): boolean {
   return Boolean(
-    GOOGLE_CLIENT_ID && GOOGLE_CLIENT_SECRET && GOOGLE_REFRESH_TOKEN
+    c.GOOGLE_CLIENT_ID && c.GOOGLE_CLIENT_SECRET && c.GOOGLE_REFRESH_TOKEN
   );
 }
 
-function getAuth() {
-  const client = new google.auth.OAuth2(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET);
-  client.setCredentials({ refresh_token: GOOGLE_REFRESH_TOKEN });
+function getAuth(c: Config) {
+  const client = new google.auth.OAuth2(c.GOOGLE_CLIENT_ID, c.GOOGLE_CLIENT_SECRET);
+  client.setCredentials({ refresh_token: c.GOOGLE_REFRESH_TOKEN });
   return client;
 }
 
@@ -74,11 +82,13 @@ function sumMetric(rows: any[] | undefined, idx: number): number {
 }
 
 export async function fetchGa(days = 30): Promise<GaResult> {
-  if (!envOk()) return { ok: false, reason: "missing-env" };
+  const c = await loadConfig();
+  const GA_PROPERTY_ID = c.GA_PROPERTY_ID;
+  if (!envOk(c)) return { ok: false, reason: "missing-env" };
   if (!GA_PROPERTY_ID) return { ok: false, reason: "missing-ga-property-id" };
 
   try {
-    const ga = google.analyticsdata({ version: "v1beta", auth: getAuth() });
+    const ga = google.analyticsdata({ version: "v1beta", auth: getAuth(c) });
     const dateRange = { startDate: `${days}daysAgo`, endDate: "today" };
 
     // Headline KPIs — one report with multiple metrics, no dimensions
@@ -222,11 +232,13 @@ function ymdDaysAgo(days: number): string {
 }
 
 export async function fetchGsc(days = 28): Promise<GscResult> {
-  if (!envOk()) return { ok: false, reason: "missing-env" };
+  const c = await loadConfig();
+  const GSC_SITE_URL = c.GSC_SITE_URL;
+  if (!envOk(c)) return { ok: false, reason: "missing-env" };
   if (!GSC_SITE_URL) return { ok: false, reason: "missing-gsc-site-url" };
 
   try {
-    const sc = google.webmasters({ version: "v3", auth: getAuth() });
+    const sc = google.webmasters({ version: "v3", auth: getAuth(c) });
     const startDate = ymdDaysAgo(days);
     const endDate = ymdDaysAgo(1); // GSC is always 1-3 days behind
 
