@@ -44,7 +44,8 @@ type Settings = Partial<Record<SettingKey, string>>;
 let cache: { at: number; values: Settings } | null = null;
 let inflight: Promise<Settings> | null = null;
 
-function deriveKeys(raw: string) {
+/** Signing + encryption keys derived from SITE_CONFIG_KEY (shared with the dashboard). */
+export function deriveKeys(raw: string) {
     const ikm = Buffer.from(raw, "base64");
     const derive = (info: string) =>
         Buffer.from(crypto.hkdfSync("sha256", ikm, Buffer.alloc(0), info, 32));
